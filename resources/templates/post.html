@@ -1,0 +1,25 @@
+<div class="post">
+    <div ng-if="post.error" class="post-content error">
+        <div class="header">{{post.message}}</div>
+    </div>
+    <div ng-if="!post.error" class="post-content">
+        <div class="header">{{post.title}}</div>
+        <div class="date">{{post.createdOn | date:"dd MMMM yyyy"}}</div>
+        <div class="post-body" ng-bind-html="post.content"></div>
+        
+        <div class="categories">
+            {{ post.categories.length > 0 ? "Posted in" : "" }}
+            <span ng-repeat="category in post.categories">
+                <a ng-href="./blog?category={{category}}">{{category}}</a>{{$last == false ? "," : ""}}
+            </span>
+        </div>
+        <div class="tags">
+            {{ post.tags.length > 0 ? "Tagged in " : "" }}
+            <span ng-repeat="tag in post.tags">
+                <a ng-href="./blog?tag={{tag}}">{{tag}}</a> {{$last == false ? ", " : ""}}
+            </span>
+        </div>
+        <div class="author">Posted by <a ng-href="./blog?author={{post.author}}">{{post.author}}</a></div>
+    </div>
+	<div class="fix"></div>
+</div>
