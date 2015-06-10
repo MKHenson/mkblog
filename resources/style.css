@@ -350,7 +350,7 @@ Please only put css rules in here for layout related requirements.
   position: relative;
   overflow:hidden;
   min-height: 100px;
-  padding: 40px 0 80px 0;
+  padding: 40px 0 0 0;
 }
 .contact-us .header {
 	text-align:center;
@@ -377,10 +377,10 @@ Please only put css rules in here for layout related requirements.
 	top:0px;
 }
 .what-we-do-cloud-2 {
-	top: 120px;
+	top: 110px;
 }
 .what-we-do-cloud-4 {
-	top: 160px;
+	top: 130px;
 }
 .what-we-do-cloud-1 {
 	-moz-animation:moveRight 40s infinite linear;
@@ -632,6 +632,44 @@ input:focus {
 .clients p img {
     margin: 60px 0;
 }
+.home-background{
+  height:200px;
+  position:relative;
+  overflow:hidden;
+}
+.tree, .rex, .rex-outer {
+    position:absolute;
+    z-index:0;
+}
+.tree-a, .tree-b {
+	-moz-animation:sway 5s infinite linear;
+	-webkit-animation:sway 5s infinite linear;
+	animation:sway 5s infinite linear;  
+}
+.rex, .tree-a, .tree-b {
+     -ms-transform-origin: 50% 100%; /* IE 9 */
+    -webkit-transform-origin: 50% 100%; /* Chrome, Safari, Opera */
+    transform-origin: 50% 100%;
+}
+.rex-outer {
+    width:600px;
+    height:169px;
+    top:40px;
+    -moz-animation: move-left 50s infinite linear;
+    -webkit-animation: move-left 50s infinite linear;
+    animation: move-left 50s infinite linear; 
+}
+.rex {
+    width:100%;
+    height:100%;
+    -moz-animation:sway-small 2s infinite linear;
+    -webkit-animation:sway-small 2s infinite linear;
+    animation:sway-small 2s infinite linear;  
+}
+.tree-b {
+	-webkit-animation-delay: 0.7s;
+    animation-delay:0.7s;
+}
 /**
 ======================================================
 				CSS MODULE DEFINITIONS
@@ -648,8 +686,24 @@ a:hover {
     border-bottom: 1px solid #74A2E0;
 }
 .home-background{
-  background-image: url("media/images/dublin-vector.png");
-  height:300px;
+  background-image: url("media/images/mountain-range.png");
+}
+.rex {
+     background-image: url("media/images/rex.png");
+}
+.tree-a{
+  background-image: url("media/images/palm-a.png");
+  width:145px;
+  height:197px;
+  top:0px;
+  left:110px;
+}
+.tree-b{
+  background-image: url("media/images/palm-b.png");
+  width:96px;
+  height:136px;
+  top:70px;
+  left:20px;
 }
 .nav-outer {
 	background:#fff;
@@ -834,9 +888,6 @@ input.ng-touched.ng-invalid {
 	.nav-items .active img {
 		display:none;
 	}
-	.nav-items .active:first-child .nav-item {
-		display:none;
-	}
 	.about {
 		padding: 60px 40px;
 	}
@@ -987,6 +1038,19 @@ input.ng-touched.ng-invalid {
 @-moz-keyframes moveRight { 0% { left: -200px; }	100% { left: 1300px; } }
 @-webkit-keyframes moveRight { 0% { left: -200px; }	100% { left: 1300px; } }
 @keyframes moveRight { 0% { left: -200px; }	100% { left: 1300px; } }
+
+@-moz-keyframes move-left { 0% { left: 1300px; }	100% { left: -700px; } }
+@-webkit-keyframes move-left { 0% { left: 1300px; }	100% { left: -700px; } }
+@keyframes move-left { 0% { left: 1300px; }	100% { left: -700px; } }
+
+@-moz-keyframes sway { 0% { -webkit-transform: rotate(0deg); -ms-transform: rotate(0deg); transform: rotate(0deg); } 50% { -ms-transform: rotate(10deg); transform: rotate(10deg); -webkit-transform: rotate(10deg); } 100% { -ms-transform: rotate(0deg); transform: rotate(0deg); -webkit-transform: rotate(0deg); } }
+@-webkit-keyframes sway { 0% { -webkit-transform: rotate(0deg); -ms-transform: rotate(0deg); transform: rotate(0deg); } 50% { -ms-transform: rotate(10deg); transform: rotate(10deg); -webkit-transform: rotate(10deg); } 100% { -ms-transform: rotate(0deg); transform: rotate(0deg); -webkit-transform: rotate(0deg); } }
+@keyframes sway { 0% { -webkit-transform: rotate(0deg); -ms-transform: rotate(0deg); transform: rotate(0deg); } 50% { -ms-transform: rotate(10deg); transform: rotate(10deg); -webkit-transform: rotate(10deg); } 100% { -ms-transform: rotate(0deg); transform: rotate(0deg); -webkit-transform: rotate(0deg); } }
+
+@-moz-keyframes sway-small { 0% { -webkit-transform: rotate(0deg); -ms-transform: rotate(0deg); transform: rotate(0deg); } 50% { -ms-transform: rotate(5deg); transform: rotate(5deg); -webkit-transform: rotate(5deg); } 100% { -ms-transform: rotate(0deg); transform: rotate(0deg); -webkit-transform: rotate(0deg); } }
+@-webkit-keyframes sway-small  { 0% { -webkit-transform: rotate(0deg); -ms-transform: rotate(0deg); transform: rotate(0deg); } 50% { -ms-transform: rotate(5deg); transform: rotate(5deg); -webkit-transform: rotate(5deg); } 100% { -ms-transform: rotate(0deg); transform: rotate(0deg); -webkit-transform: rotate(0deg); } }
+@keyframes sway-small  { 0% { -webkit-transform: rotate(0deg); -ms-transform: rotate(0deg); transform: rotate(0deg); } 50% { -ms-transform: rotate(5deg); transform: rotate(5deg); -webkit-transform: rotate(5deg); } 100% { -ms-transform: rotate(0deg); transform: rotate(0deg); -webkit-transform: rotate(0deg); } }
+
 
 @-moz-keyframes blurOut { 0% { -webkit-filter: none; -moz-filter: none; -o-filter: none; -ms-filter: none; filter: none; }	100% { -webkit-filter: blur(5px); -moz-filter: blur(5px); -o-filter: blur(5px); -ms-filter: blur(5px); filter: blur(5px); } }
 @-webkit-keyframes blurOut { 0% { -webkit-filter: none; -moz-filter: none; -o-filter: none; -ms-filter: none; filter: none; }	100% { -webkit-filter: blur(5px); -moz-filter: blur(5px); -o-filter: blur(5px); -ms-filter: blur(5px); filter: blur(5px); } }
