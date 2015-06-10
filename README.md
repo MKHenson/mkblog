@@ -1,2 +1,4 @@
 # mkblog
-A small blog site using Modepress as and Webinate Users as its backend
+A small blog site using Modepress and Webinate Users as its backend
+
+* v0.0.2
