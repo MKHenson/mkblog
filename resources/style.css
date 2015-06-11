@@ -358,7 +358,11 @@ Please only put css rules in here for layout related requirements.
 	position:relative;
 	overflow:hidden;
 }
-
+.what-we-do{
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
 .what-we-do-cloud {
 	position:absolute;
 	left: -180px;
@@ -659,9 +663,9 @@ input:focus {
     width:600px;
     height:169px;
     top:40px;
-    -moz-animation: move-left 50s infinite linear;
-    -webkit-animation: move-left 50s infinite linear;
-    animation: move-left 50s infinite linear; 
+    -moz-animation: move-left 20s infinite linear;
+    -webkit-animation: move-left 20s infinite linear;
+    animation: move-left 20s infinite linear; 
 }
 .rex {
     width:100%;
@@ -899,6 +903,17 @@ input.ng-touched.ng-invalid {
         float: left;
         display:block;
     }
+    .post-content{
+        width:auto;
+        padding:10px 50px 50px 50px;
+        margin:0px;
+    }
+}
+@media screen and (max-width:850px) {
+    .blog-item {
+        width: auto;
+        float: none;
+    }
 }
 @media screen and (max-width:730px) {
     .clients p img {
@@ -921,7 +936,7 @@ input.ng-touched.ng-invalid {
 	a .nav-item {
         font-size: 20px;
         line-height: 50px;
-        padding: 10px;
+        padding: 5px;
 	}
 	.tech {
 		padding: 40px 0;
@@ -945,10 +960,7 @@ input.ng-touched.ng-invalid {
     .blog {
         margin:0 0;
     }
-    .blog-item {
-        width: auto;
-        float:none;
-    }
+    
     .blog-intro .categories {
         float:none;
         text-align: center;
@@ -965,6 +977,21 @@ input.ng-touched.ng-invalid {
 		margin: 0 0 30px 0;
 		padding: 0;
 	}
+
+    .navigation {
+        text-align: center;
+    }
+    
+    .navigation .earlier,   .navigation .older {
+        float:none;
+        width: auto;
+        display: block;
+        margin:20px auto;
+    }
+    .blog-page .date {
+        float: none;
+    }
+
 }
 /* smartphones, iPhone, portrait 480x320 phones */ 
 @media screen and (max-width:390px)
