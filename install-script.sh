@@ -6,7 +6,7 @@ set -e
 
 # Functiom that prints the latest stable version
 version() {
-  echo "0.0.3"
+  echo "0.0.4"
 }
 
 echo "cleaning up folder..."
@@ -30,7 +30,7 @@ unzip -o "v$(version).zip"
 mv mkblog-$(version)/resources ./resources
 mv mkblog-$(version)/templates ./templates
 
-# Remove modepress-master
+# Remove mkblog folder
 if [ -d "mkblog-$(version)" ]; then
 	rm mkblog-$(version) -R
 fi
