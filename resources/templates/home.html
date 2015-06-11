@@ -8,4 +8,35 @@
 	<div class="tree tree-a"></div>
     <div class="tree tree-b"></div>
     <div class="rex-outer"><div class="rex"></div></div>
+    <img class="mathew-henson" src="media/images/mathew-profile.png"/>
+</div>
+<div class="blog-container">
+
+    <div class="navigation">
+        <a class="earlier" ng-show="controller.index" ng-href=".?index={{controller.index > controller.limit ? controller.index - controller.limit : 0 }}">< Earlier Posts</a>
+        <a class="older" ng-show="controller.index + controller.limit < controller.last" ng-href=".?index={{controller.index + controller.limit}}">Older Posts ></a>
+        <div class="fix"></div>
+    </div>
+
+    <div class="blog-page" ng-repeat="post in controller.posts">
+        <div class="date">{{post.createdOn | date:"dd MMMM yyyy"}}</div>
+        <div class="blog-header"><a ng-href="./post/{{post.slug}}">{{post.title}}</a></div>
+        <div class="author">Posted by <a ng-href=".?author={{post.author}}">{{post.author}}</a></div>
+        <div class="post-body" ng-bind-html="post.content"></div>
+        <div class="tags">
+            {{ post.tags.length > 0 ? "Tagged in " : "" }}
+            <span ng-repeat="tag in post.tags">
+                <a ng-href=".?tag={{tag}}">{{tag}}</a> {{$last == false ? ", " : ""}}
+            </span>
+        </div>
+        <a ng-href="./post/{{post.slug}}"><div class="button blue">Read More</div></a>
+    </div>
+
+    <div class="fix"></div>
+
+    <div class="navigation">
+        <a class="earlier" ng-show="controller.index" ng-href=".?index={{controller.index > controller.limit ? controller.index - controller.limit : 0 }}">< Earlier Posts</a>
+        <a class="older" ng-show="controller.index + controller.limit < controller.last" ng-href=".?index={{controller.index + controller.limit}}">Older Posts ></a>
+        <div class="fix"></div>
+    </div>
 </div>

@@ -600,8 +600,8 @@ input:focus {
 	width:100%;
 }
 .post-content {
-    width:600px;
-    margin: 10px auto 70px auto;
+    width:800px;
+    margin: 50px auto 70px auto;
 }
 .post .header {
     margin: 20px 0 5px 0;
@@ -630,12 +630,13 @@ input:focus {
     text-align:center
 }
 .clients p img {
-    margin: 60px 0;
+    margin: 90px 0;
 }
 .home-background{
   height:200px;
   position:relative;
   overflow:hidden;
+  text-align:center;
 }
 .tree, .rex, .rex-outer {
     position:absolute;
@@ -650,6 +651,9 @@ input:focus {
      -ms-transform-origin: 50% 100%; /* IE 9 */
     -webkit-transform-origin: 50% 100%; /* Chrome, Safari, Opera */
     transform-origin: 50% 100%;
+}
+.mathew-henson {
+    position:relative;
 }
 .rex-outer {
     width:600px;
@@ -670,6 +674,30 @@ input:focus {
 	-webkit-animation-delay: 0.7s;
     animation-delay:0.7s;
 }
+.blog-container {
+    padding:40px 0;
+}
+.blog-page {
+    margin: 0px 15% 50px 15%;
+    padding:40px;
+}
+.navigation{
+    margin: 0px 15% 50px 15%;
+}
+.blog-page .button {
+    display: inline-block;
+    margin: 40px 0 0 0;
+}
+.blog-page .date {
+    float: right;
+    line-height: 50px;
+}
+.blog-header {
+    margin:10px 0;
+}
+.blog-page .post-body {
+    overflow: auto;
+}
 /**
 ======================================================
 				CSS MODULE DEFINITIONS
@@ -678,6 +706,19 @@ Please only put css rules in here for generalized modules.
 
 	eg: classes for highlighting text on certain pages
 **/
+.blog-container {
+    background: #B8F0AA;
+}
+.blog-page {
+    background:#fff;
+    border-radius:10px;
+}
+.navigation a {
+    background: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
 a {
     color: #325D98;
     text-decoration: none;
@@ -713,7 +754,7 @@ a:hover {
 }
 .blog-header a {
     font-weight:bold;
-    color: rgb(7, 111, 194);
+    color: #6e98d1;
     text-decoration:none;
 }
 .what-we-do {
@@ -739,7 +780,7 @@ a:hover {
     border-bottom:none;
 }
 .active .nav-item {
-	color:#333;
+	color:#6e98d1;
 }
 .nav-item:hover {
 	border-bottom: 1px solid #ccc;
@@ -826,7 +867,7 @@ input.ng-touched.ng-invalid {
     background: rgba(255,255,255,0.85);
 }
 .post .header {
-    color: rgb(7, 111, 194);
+    color: #6e98d1;
     font-weight: bold;
     text-transform: uppercase;
     font-size: 30px;

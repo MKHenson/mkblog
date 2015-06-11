@@ -57,9 +57,6 @@
     <Content Include="..\resources\templates\about.html">
       <Link>html\templates\about.html</Link>
     </Content>
-    <Content Include="..\resources\templates\blog.html">
-      <Link>html\templates\blog.html</Link>
-    </Content>
     <Content Include="..\resources\templates\contact.html">
       <Link>html\templates\contact.html</Link>
     </Content>
@@ -74,6 +71,9 @@
     </Content>
     <Content Include="..\resources\templates\post.html">
       <Link>html\templates\post.html</Link>
+    </Content>
+    <Content Include="..\resources\templates\projects.html">
+      <Link>html\templates\projects.html</Link>
     </Content>
     <Content Include="..\templates\index.jade">
       <Link>jade-templates\index.jade</Link>

@@ -1,5 +1,8 @@
 <div class="footer-column">
     <div class="footer-header"><a class="footer-header" ui-sref="home" ui-sref-active="active">Blog</a></div>
+    <div class="footer-item" ng-repeat="post in allPosts">
+        <a ng-href="./post/{{post.slug}}">{{post.title}}</a>
+    </div>
 </div>
 <div class="footer-column">
     <div class="footer-header"><a class="footer-header" ui-sref="about" ui-sref-active="active">About</a></div>

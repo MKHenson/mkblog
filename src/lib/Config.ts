@@ -22,14 +22,15 @@
             routeProvider.otherwise("/");
 
             // Create the states
-            stateProvider.state("home", { url: "/", templateUrl: "templates/home.html", controller: "homeCtrl", controllerAs: "controller" });
+            stateProvider.state("home",
+                { url: "/?author&category&tag&index", templateUrl: "templates/home.html", controller: "homeCtrl", controllerAs: "controller" });
             stateProvider.state("about", { url: "/about", templateUrl: "templates/about.html" });
             stateProvider.state("contact", { url: "/contact", templateUrl: "templates/contact.html", controller: "contactCtrl", controllerAs: "controller" });
             stateProvider.state("projects", { url: "/projects", templateUrl: "templates/projects.html" });
 
             // Prior to the blog state loading, make sure the categories are downloaded
             stateProvider.state("blog", {
-                url: "/blog?author&category&tag&index", templateUrl: "templates/blog.html", controller: "blogCtrl", controllerAs: "controller"
+                url: "/blog?author&category&tag&index", templateUrl: "templates/projects.html", controller: "blogCtrl", controllerAs: "controller"
             });
 
             // Download the post prior to loading this state

@@ -7,17 +7,91 @@
     */
 	export class HomeCtrl
     {
-        // The dependency injector
-        public static $inject = ["$scope"];
+        // An array of todo items
+        private http: ng.IHttpService;
+        public posts: Array<modepress.IPost>;
+        public apiURL: string;
+        public sce: ng.ISCEService;
+
+        public author: string;
+        public category: string;
+        public tag: string;
+        public index: number;
+        public limit: number;
+        public last: number;
+
+        public static $inject = ["$http", "apiURL", "$stateParams", "$sce"];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(scope: ng.IScope)
+        constructor(http: ng.IHttpService, apiURL: string, stateParams: any, sce: ng.ISCEService)
+        {
+            this.http = http;
+            this.posts = [];
+            this.apiURL = apiURL;
+            this.sce = sce;
+
+            this.limit = 5;
+            this.index = parseInt(stateParams.index) || 0;
+            this.last = Infinity;
+
+            this.author = stateParams.author || "";
+            this.category = stateParams.category || "";
+            this.tag = stateParams.tag || "";
+            this.getPosts();
+        }
+
+        /**
+        * Sets the page search back to index = 0
+        */
+        goNext()
+        {
+            this.index += this.limit;
+            this.getPosts();
+        }
+
+        /**
+        * Sets the page search back to index = 0
+        */
+        goPrev()
+        {
+            this.index -= this.limit;
+            if (this.index < 0)
+                this.index = 0;
+            this.getPosts();
+        }
+
+        /**
+        * Fetches a list of posts with the given GET params
+        */
+        getPosts()
         {
             var that = this;
+            this.http.get<modepress.IGetPosts>(`${this.apiURL}/posts/get-posts?visibility=all&tags=${that.tag}&index=${that.index}&limit=${that.limit}&author=${that.author}&categories=${that.category}`).then(function (posts)
+            {
+                that.posts = posts.data.data;
+                var brokenArr;
 
-            scope.$on("$destroy", function() { that.onDestroy(); });
+                for (var i = 0, l = that.posts.length; i < l; i++)
+                {
+                    brokenArr = that.posts[i].content.split("<!-- pagebreak -->");
+                    that.posts[i].content = that.sce.trustAsHtml(brokenArr[0]);
+                }
+
+                that.last = posts.data.count;
+            });
+        }
+
+        getBlogImageURL(post: modepress.IPost)
+        {
+            var url = "/media/images/camera.jpg";
+            if (post.featuredImage && post.featuredImage != "")
+                url = post.featuredImage;
+
+            return {
+                "background-image": "url('" + url + "')"
+            }
         }
 
         /**

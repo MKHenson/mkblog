@@ -2,6 +2,7 @@
 {
     export class FooterCtrl
     {
+        public allPosts: Array<modepress.IPost>;
         public posts: Array<modepress.IPost>;
 
         // The dependency injector
@@ -15,6 +16,11 @@
             http.get<modepress.IGetPosts>(`${apiURL}/posts/get-posts?limit=5&minimal=true&visibility=public`).then(function (posts)
             {
                 scope.posts = posts.data.data;
+            });
+
+            http.get<modepress.IGetPosts>(`${apiURL}/posts/get-posts?limit=5&minimal=true&visibility=all`).then(function (posts)
+            {
+                scope.allPosts = posts.data.data;
             });
         }
     }
