@@ -68,7 +68,7 @@
         getPosts()
         {
             var that = this;
-            this.http.get<modepress.IGetPosts>(`${this.apiURL}/posts/get-posts?visibility=all&tags=${that.tag}&index=${that.index}&limit=${that.limit}&author=${that.author}&categories=${that.category}`).then(function (posts)
+            this.http.get<modepress.IGetPosts>(`${this.apiURL}/posts/get-posts?visibility=all&tags=${that.tag},mkhenson&index=${that.index}&limit=${that.limit}&author=${that.author}&categories=${that.category}`).then(function (posts)
             {
                 that.posts = posts.data.data;
                 var brokenArr;

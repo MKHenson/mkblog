@@ -109,7 +109,7 @@ var mkblog;
         */
         BlogCtrl.prototype.getPosts = function () {
             var that = this;
-            this.http.get(this.apiURL + "/posts/get-posts?visibility=public&tags=" + that.tag + "&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category + "&minimal=true").then(function (posts) {
+            this.http.get(this.apiURL + "/posts/get-posts?visibility=public&tags=" + that.tag + ",mkhenson&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category + "&minimal=true").then(function (posts) {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
             });
@@ -172,7 +172,7 @@ var mkblog;
         */
         HomeCtrl.prototype.getPosts = function () {
             var that = this;
-            this.http.get(this.apiURL + "/posts/get-posts?visibility=all&tags=" + that.tag + "&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category).then(function (posts) {
+            this.http.get(this.apiURL + "/posts/get-posts?visibility=all&tags=" + that.tag + ",mkhenson&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category).then(function (posts) {
                 that.posts = posts.data.data;
                 var brokenArr;
                 for (var i = 0, l = that.posts.length; i < l; i++) {

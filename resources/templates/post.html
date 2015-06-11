@@ -16,7 +16,7 @@
         <div class="tags">
             {{ post.tags.length > 0 ? "Tagged in " : "" }}
             <span ng-repeat="tag in post.tags">
-                <a ng-href="./blog?tag={{tag}}">{{tag}}</a> {{$last == false ? ", " : ""}}
+                <a ng-href=".?tag={{tag}}">{{tag}}</a> {{$last == false ? ", " : ""}}
             </span>
         </div>
         <div class="author">Posted by <a ng-href="./blog?author={{post.author}}">{{post.author}}</a></div>
