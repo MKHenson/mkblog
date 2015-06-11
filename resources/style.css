@@ -361,7 +361,8 @@ Please only put css rules in here for layout related requirements.
 .what-we-do{
     width: 100%;
     overflow: hidden;
-    position: relative;
+    position: absolute;
+    height:200px;
 }
 .what-we-do-cloud {
 	position:absolute;
@@ -832,7 +833,7 @@ a .nav-item{
 .contact-form {
 	background: #DEECFA;
 }
-.contact-us .header, .what-we-do {
+.contact-us .header {
 	background-image: url("media/images/dublin-vector.png");
 }
 .about {
