@@ -703,6 +703,11 @@ input:focus {
 .blog-page .post-body {
     overflow: auto;
 }
+.blog-container img {
+    height: auto;
+    margin: 0 auto;
+    max-width: 100%;
+}
 /**
 ======================================================
 				CSS MODULE DEFINITIONS
@@ -883,17 +888,11 @@ input.ng-touched.ng-invalid {
 .tags, .categories, .categories a, .tags a {
     font-size:20px;
 }
-.post-body img, .post-body iframe {
+.post-body img, .post-body iframe, .blog-container img {
     box-sizing: border-box;
     border: 10px solid #eee;
 }
-.blog-container img {
-    height: auto;
-    border: 10px solid #ccc;
-    box-sizing: border-box;
-    margin: 0 auto;
-    max-width: 100%;
-}
+
 /**
 ======================================================
 				MEDIA QUERIES

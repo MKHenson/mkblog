@@ -31,7 +31,7 @@
             this.posts = [];
             this.apiURL = apiURL;
 
-            this.limit = 5;
+            this.limit = 12;
             this.index = parseInt(stateParams.index) || 0;
             this.last = Infinity;
 
