@@ -6,19 +6,8 @@ set -e
 
 # Functiom that prints the latest stable version
 version() {
-  echo "0.0.4"
+  echo "0.0.5"
 }
-
-echo "cleaning up folder..."
-
-# Remove existing folders if they exist
-if [ -d "resources" ]; then
-	rm resources -R
-fi
-if [ -d "templates" ]; then
-	rm templates -R
-fi
-
 
 echo "Downloading latest version from github $(version)"
 
