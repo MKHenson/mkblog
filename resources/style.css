@@ -883,6 +883,10 @@ input.ng-touched.ng-invalid {
 .tags, .categories, .categories a, .tags a {
     font-size:20px;
 }
+.post-body img, .post-body iframe {
+  box-sizing: border-box;
+  border: 10px solid #eee;
+}
 /**
 ======================================================
 				MEDIA QUERIES
