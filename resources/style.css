@@ -733,6 +733,7 @@ Please only put css rules in here for generalized modules.
     padding: 15px;
     border-radius: 5px;
     box-sizing: border-box;
+    height: 60px;
 }
 a {
     color: #325D98;
@@ -740,9 +741,6 @@ a {
 }
 a:hover {
     border-bottom: 1px solid #74A2E0;
-}
-.navigation a:hover{
-    border-bottom:none;
 }
 .home-background{
   background-image: url("media/images/mountain-range.png");
@@ -898,10 +896,6 @@ input.ng-touched.ng-invalid {
 }
 .tags, .categories, .categories a, .tags a {
     font-size:20px;
-}
-.post-body img, .post-body iframe, .blog-container img {
-    box-sizing: border-box;
-    border: 10px solid #eee;
 }
 
 /**
