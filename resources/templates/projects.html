@@ -15,7 +15,7 @@
                 <div class="blackener">                    
                     <div class="blog-header"><a ng-href="./post/{{post.slug}}">{{post.title}}</a></div>
                     <div class="categories">
-                        In 
+                        {{post.categories.length > 0 ? "In": ""}}
                         <span ng-repeat="category in post.categories">
                             <a ng-href="./blog?category={{category}}">{{category}}</a>{{$last == false ? "," : ""}}
                         </span>
