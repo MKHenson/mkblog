@@ -884,8 +884,15 @@ input.ng-touched.ng-invalid {
     font-size:20px;
 }
 .post-body img, .post-body iframe {
-  box-sizing: border-box;
-  border: 10px solid #eee;
+    box-sizing: border-box;
+    border: 10px solid #eee;
+}
+.blog-container img {
+    height: auto;
+    border: 10px solid #ccc;
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: 100%;
 }
 /**
 ======================================================
