@@ -16,8 +16,8 @@ wget https://github.com/MKHenson/mkblog/archive/v$(version).zip
 unzip -o "v$(version).zip"
 
 # Moves the server folder to the current directory
-cp -r mkblog-$(version)/resources ./resources
-cp -r mkblog-$(version)/templates ./templates
+cp -r mkblog-$(version)/resources/* ./resources
+cp -r mkblog-$(version)/templates/* ./templates
 
 # Remove mkblog folder
 if [ -d "mkblog-$(version)" ]; then
