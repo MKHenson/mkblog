@@ -1003,6 +1003,7 @@ input.ng-touched.ng-invalid {
         width: auto;
         display: block;
         margin:20px auto;
+        font-size: 22px;
     }
     .blog-page .date {
         float: none;
