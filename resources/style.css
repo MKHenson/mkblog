@@ -329,6 +329,11 @@ Please only put css rules in here for layout related requirements.
 	-webkit-animation:fadeIn .6s ease-in-out;
 	animation:fadeIn .6s ease-in-out;
 }
+.animate {
+	-moz-animation:fadeIn .6s ease-in-out;
+	-webkit-animation:fadeIn .6s ease-in-out;
+	animation:fadeIn .6s ease-in-out;
+}
 .content {
 	position: relative;
 }
@@ -736,6 +741,9 @@ a {
 a:hover {
     border-bottom: 1px solid #74A2E0;
 }
+.navigation a:hover{
+    border-bottom:none;
+}
 .home-background{
   background-image: url("media/images/mountain-range.png");
 }
@@ -874,7 +882,10 @@ input.ng-touched.ng-invalid {
 	box-shadow: 3px 3px 8px 0px rgba(0,0,0,0.35);
 }
 .blackener {
-    background: rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.9);
+}
+.blog-item:hover .blackener {
+    background: rgba(255,255,255,1);
 }
 .post .header {
     color: #6e98d1;
