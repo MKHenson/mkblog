@@ -14,7 +14,7 @@ A small blog site using Modepress and Webinate Users as its backend
 ## Installation
 
 1) Make sure the requirements are installed and running
-2) Create a folder where you want to store mkblog
+2) Create a folder where you want to store mkblog and go into that folder
 
 ```
 mkdir mkblog
