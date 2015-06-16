@@ -15,6 +15,12 @@ echo "Downloading latest version from github $(version)"
 wget https://github.com/MKHenson/mkblog/archive/v$(version).zip
 unzip -o "v$(version).zip"
 
+# If directories are not present, then create them
+if [ ! -d "resources" ]; then
+	mkdir resources
+	mkdir templates
+fi
+
 # Moves the server folder to the current directory
 cp -r mkblog-$(version)/resources/* ./resources
 cp -r mkblog-$(version)/templates/* ./templates
