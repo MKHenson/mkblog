@@ -19,7 +19,7 @@ unzip -o "v$(version).zip"
 cp -r mkblog-$(version)/resources/* ./resources
 cp -r mkblog-$(version)/templates/* ./templates
 
-# Remove mkblog folder
+# Removes the temp mkblog folder
 if [ -d "mkblog-$(version)" ]; then
 	rm mkblog-$(version) -R
 fi
