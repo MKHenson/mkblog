@@ -11,7 +11,7 @@ wget https://github.com/MKHenson/mkblog/archive/dev.zip
 unzip -o "dev.zip"
 
 # If directories are not present, then create them
-if [ -d "resources" ]; then
+if [ ! -d "resources" ]; then
 	mkdir resources
 	mkdir templates
 fi
