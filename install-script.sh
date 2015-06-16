@@ -4,23 +4,28 @@
 # Stops the execution of a script if a command or pipeline has an error
 set -e
 
-echo "Downloading latest version from github dev"
+# Functiom that prints the latest stable version
+version() {
+  echo "0.0.7"
+}
+
+echo "Downloading latest version from github $(version)"
 
 #download latest
-wget https://github.com/MKHenson/mkblog/archive/dev.zip
-unzip -o "dev.zip"
+wget https://github.com/MKHenson/mkblog/archive/v$(version).zip
+unzip -o "v$(version).zip"
 
 # Moves the server folder to the current directory
-cp -r mkblog-dev/resources/* ./resources
-cp -r mkblog-dev/templates/* ./templates
+cp -r mkblog-$(version)/resources/* ./resources
+cp -r mkblog-$(version)/templates/* ./templates
 
 # Removes the temp mkblog folder
-if [ -d "mkblog-dev" ]; then
-	rm mkblog-dev -R
+if [ -d "mkblog-$(version)" ]; then
+	rm mkblog-$(version) -R
 fi
 
 # Remove the zip file
-rm "dev.zip"
+rm "v$(version).zip"
 
 # All done
 echo "MKBlog successfully installed :)"
