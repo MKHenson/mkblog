@@ -5,7 +5,7 @@ module mkblog
 {
     'use strict';
 
-    angular.module("mkblog", ["ui.router", 'ngSanitize'])
+    angular.module("mkblog", ["ui.router", 'ngSanitize', 'chieffancypants.loadingBar'])
         .config(Config)
         .run(["$rootScope", "$location", "$window", function ($rootScope: ng.IRootScopeService, $location: ng.ILocationService, $window: ng.IWindowService)
         {

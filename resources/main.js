@@ -247,7 +247,7 @@ var mkblog;
 var mkblog;
 (function (mkblog) {
     'use strict';
-    angular.module("mkblog", ["ui.router", 'ngSanitize'])
+    angular.module("mkblog", ["ui.router", 'ngSanitize', 'chieffancypants.loadingBar'])
         .config(mkblog.Config)
         .run(["$rootScope", "$location", "$window", function ($rootScope, $location, $window) {
             // This tells Google analytics to count a new page view on each state change
