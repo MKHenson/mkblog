@@ -275,6 +275,15 @@ button[disabled], html input[disabled] {
     -moz-box-sizing: border-box;
 	box-sizing: content-box;
 }
+.loading-state::before {
+    content:"Loading";
+    height:50px;
+    width:100%;
+    background:#ff0000;
+    background-image: url("media/images/mathew-profile.png");
+    background-position:center;
+    background-repeat:no-repeat;
+}
 /**
 ======================================================
 				CSS LAYOUT DEFINITIONS
@@ -324,15 +333,10 @@ Please only put css rules in here for layout related requirements.
     box-sizing:border-box;
     border-top: solid 80px;
 }
-.content {
-	-moz-animation:fadeIn .6s ease-in-out;
-	-webkit-animation:fadeIn .6s ease-in-out;
-	animation:fadeIn .6s ease-in-out;
-}
 .animate {
-	-moz-animation:fadeIn .6s ease-in-out;
-	-webkit-animation:fadeIn .6s ease-in-out;
-	animation:fadeIn .6s ease-in-out;
+	-moz-animation:fadeIn 1s ease-in-out;
+	-webkit-animation:fadeIn 1s ease-in-out;
+	animation:fadeIn 1s ease-in-out;
 }
 .content {
 	position: relative;
@@ -643,10 +647,11 @@ input:focus {
     margin: 90px 0;
 }
 .home-background{
-  height:200px;
-  position:relative;
-  overflow:hidden;
-  text-align:center;
+    height:200px;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    margin: 30px 0 0 0;
 }
 .tree, .rex, .rex-outer {
     position:absolute;
@@ -713,6 +718,14 @@ input:focus {
     margin: 0 auto;
     max-width: 100%;
 }
+.loading-blue:empty, .loading-white:empty {
+    min-height:300px;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+.navigation a {
+    display: none;
+}
 /**
 ======================================================
 				CSS MODULE DEFINITIONS
@@ -723,7 +736,15 @@ Please only put css rules in here for generalized modules.
 **/
 .blog-container {
     background: #B8F0AA;
+    background-image: url("media/images/underground.jpg");
 }
+.loading-white:empty {
+    background-image: url("media/images/loading-white.gif");
+}
+.loading-blue:empty {
+    background-image: url("media/images/loading-blue.gif");
+}
+
 .blog-page {
     background:#fff;
     border-radius:10px;

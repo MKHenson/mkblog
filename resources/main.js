@@ -20,9 +20,7 @@ var mkblog;
             stateProvider.state("contact", { url: "/contact", templateUrl: "templates/contact.html", controller: "contactCtrl", controllerAs: "controller" });
             stateProvider.state("projects", { url: "/projects", templateUrl: "templates/projects.html" });
             // Prior to the blog state loading, make sure the categories are downloaded
-            stateProvider.state("blog", {
-                url: "/blog?author&category&tag&index", templateUrl: "templates/projects.html", controller: "blogCtrl", controllerAs: "controller"
-            });
+            stateProvider.state("blog", { url: "/blog?author&category&tag&index", templateUrl: "templates/projects.html", controller: "blogCtrl", controllerAs: "controller" });
             // Download the post prior to loading this state
             // then assign the post to the scope
             stateProvider.state("post", {
