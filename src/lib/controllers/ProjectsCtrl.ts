@@ -5,7 +5,7 @@
     /**
     * Controller for the blog page
     */
-    export class BlogCtrl
+    export class ProjectsCtrl
 	{
 		// An array of todo items
         private http: ng.IHttpService;
@@ -18,18 +18,20 @@
         public index: number;
         public limit: number;
         public last: number;
+        public signaller: Function;
 
 		// The dependency injector
-        public static $inject = ["$http", "apiURL", "$stateParams" ];
+        public static $inject = ["$http", "apiURL", "$stateParams", "signaller" ];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(http: ng.IHttpService, apiURL: string, stateParams: any)
+        constructor(http: ng.IHttpService, apiURL: string, stateParams: any, signaller: Function)
 		{
             this.http = http;
             this.posts = [];
             this.apiURL = apiURL;
+            this.signaller = signaller;
 
             this.limit = 12;
             this.index = parseInt(stateParams.index) || 0;
@@ -71,6 +73,7 @@
             {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
+                that.signaller(); 
             });
         }
 

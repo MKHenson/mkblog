@@ -1,5 +1,36 @@
 var mkblog;
 (function (mkblog) {
+    /**
+    * A class bound to the meta tags of the site. You can call this object in controllers with the dependency "meta"
+    */
+    var Meta = (function () {
+        /**
+        * Creates an instance of the meta class
+        */
+        function Meta() {
+            this.defaults();
+        }
+        /**
+        * Sets the values to their default state
+        */
+        Meta.prototype.defaults = function () {
+            this.description = "Mathew Henson's blog page, dublin based web developer";
+            this.title = "Mathew Henson's blog";
+            this.brief = "Mat's blog of game, server and app development based in Dublin";
+            this.smallImage = "";
+            this.bigImage = "";
+            this.author = "Mathew Henson";
+            this.website = "Mathew Henson's Blog";
+            this.url = "http://mkhenson.com";
+            this.twitterAuthor = "@MathewKHenson";
+            this.twitterSite = "@WebinateNet";
+        };
+        return Meta;
+    })();
+    mkblog.Meta = Meta;
+})(mkblog || (mkblog = {}));
+var mkblog;
+(function (mkblog) {
     'use strict';
     /**
     * Configures the application
@@ -16,15 +47,13 @@ var mkblog;
             routeProvider.otherwise("/");
             // Create the states
             stateProvider.state("home", { url: "/?author&category&tag&index", templateUrl: "templates/home.html", controller: "homeCtrl", controllerAs: "controller" });
-            stateProvider.state("about", { url: "/about", templateUrl: "templates/about.html" });
+            stateProvider.state("about", { url: "/about", templateUrl: "templates/about.html", controller: "simpleCtrl" });
             stateProvider.state("contact", { url: "/contact", templateUrl: "templates/contact.html", controller: "contactCtrl", controllerAs: "controller" });
-            stateProvider.state("projects", { url: "/projects", templateUrl: "templates/projects.html" });
-            // Prior to the blog state loading, make sure the categories are downloaded
-            stateProvider.state("blog", { url: "/blog?author&category&tag&index", templateUrl: "templates/projects.html", controller: "blogCtrl", controllerAs: "controller" });
+            stateProvider.state("projects", { url: "/projects?author&category&tag&index", templateUrl: "templates/projects.html", controller: "projectsCtrl", controllerAs: "controller" });
             // Download the post prior to loading this state
             // then assign the post to the scope
             stateProvider.state("post", {
-                url: "/post/:slug", templateUrl: "templates/post.html",
+                url: "/post/:slug", templateUrl: "templates/post.html", controller: "postCtrl",
                 resolve: {
                     post: ["$http", "apiURL", "$stateParams", function ($http, apiURL, stateParams) {
                             return $http.get(apiURL + "/posts/get-post/" + stateParams.slug).then(function (posts) {
@@ -33,17 +62,32 @@ var mkblog;
                                 return posts.data.data;
                             });
                         }]
-                },
-                controller: ["$scope", "post", "$sce", function (scope, post, sce) {
-                        scope.post = post;
-                        scope.post.content = sce.trustAsHtml(post.content);
-                    }]
+                }
             });
         }
         Config.$inject = ["$urlRouterProvider", "$stateProvider", "$locationProvider"];
         return Config;
     })();
     mkblog.Config = Config;
+})(mkblog || (mkblog = {}));
+var mkblog;
+(function (mkblog) {
+    'use strict';
+    /**
+    * Controller for managing the
+    */
+    var SimpleCtrl = (function () {
+        /**
+        * Creates an instance of the home controller
+        */
+        function SimpleCtrl(signaller, meta) {
+            meta.defaults();
+            signaller();
+        }
+        SimpleCtrl.$inject = ["signaller", "meta"];
+        return SimpleCtrl;
+    })();
+    mkblog.SimpleCtrl = SimpleCtrl;
 })(mkblog || (mkblog = {}));
 var mkblog;
 (function (mkblog) {
@@ -70,14 +114,15 @@ var mkblog;
     /**
     * Controller for the blog page
     */
-    var BlogCtrl = (function () {
+    var ProjectsCtrl = (function () {
         /**
         * Creates an instance of the home controller
         */
-        function BlogCtrl(http, apiURL, stateParams) {
+        function ProjectsCtrl(http, apiURL, stateParams, signaller) {
             this.http = http;
             this.posts = [];
             this.apiURL = apiURL;
+            this.signaller = signaller;
             this.limit = 12;
             this.index = parseInt(stateParams.index) || 0;
             this.last = Infinity;
@@ -89,14 +134,14 @@ var mkblog;
         /**
         * Sets the page search back to index = 0
         */
-        BlogCtrl.prototype.goNext = function () {
+        ProjectsCtrl.prototype.goNext = function () {
             this.index += this.limit;
             this.getPosts();
         };
         /**
         * Sets the page search back to index = 0
         */
-        BlogCtrl.prototype.goPrev = function () {
+        ProjectsCtrl.prototype.goPrev = function () {
             this.index -= this.limit;
             if (this.index < 0)
                 this.index = 0;
@@ -105,14 +150,15 @@ var mkblog;
         /**
         * Fetches a list of posts with the given GET params
         */
-        BlogCtrl.prototype.getPosts = function () {
+        ProjectsCtrl.prototype.getPosts = function () {
             var that = this;
             this.http.get(this.apiURL + "/posts/get-posts?visibility=public&tags=" + that.tag + ",mkhenson&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category + "&minimal=true").then(function (posts) {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
+                that.signaller();
             });
         };
-        BlogCtrl.prototype.getBlogImageURL = function (post) {
+        ProjectsCtrl.prototype.getBlogImageURL = function (post) {
             var url = "/media/images/camera.jpg";
             if (post.featuredImage && post.featuredImage != "")
                 url = post.featuredImage;
@@ -121,10 +167,10 @@ var mkblog;
             };
         };
         // The dependency injector
-        BlogCtrl.$inject = ["$http", "apiURL", "$stateParams"];
-        return BlogCtrl;
+        ProjectsCtrl.$inject = ["$http", "apiURL", "$stateParams", "signaller"];
+        return ProjectsCtrl;
     })();
-    mkblog.BlogCtrl = BlogCtrl;
+    mkblog.ProjectsCtrl = ProjectsCtrl;
 })(mkblog || (mkblog = {}));
 var mkblog;
 (function (mkblog) {
@@ -136,7 +182,7 @@ var mkblog;
         /**
         * Creates an instance of the home controller
         */
-        function HomeCtrl(http, apiURL, stateParams, sce) {
+        function HomeCtrl(http, apiURL, stateParams, sce, signaller, meta) {
             this.http = http;
             this.posts = [];
             this.apiURL = apiURL;
@@ -147,6 +193,9 @@ var mkblog;
             this.author = stateParams.author || "";
             this.category = stateParams.category || "";
             this.tag = stateParams.tag || "";
+            this.signaller = signaller;
+            this.meta = meta;
+            this.meta.description = "Well it looks like we've got news!";
             this.getPosts();
         }
         /**
@@ -178,6 +227,7 @@ var mkblog;
                     that.posts[i].content = that.sce.trustAsHtml(brokenArr[0]);
                 }
                 that.last = posts.data.count;
+                that.signaller();
             });
         };
         HomeCtrl.prototype.getBlogImageURL = function (post) {
@@ -193,10 +243,33 @@ var mkblog;
         */
         HomeCtrl.prototype.onDestroy = function () {
         };
-        HomeCtrl.$inject = ["$http", "apiURL", "$stateParams", "$sce"];
+        HomeCtrl.$inject = ["$http", "apiURL", "$stateParams", "$sce", "signaller", "meta"];
         return HomeCtrl;
     })();
     mkblog.HomeCtrl = HomeCtrl;
+})(mkblog || (mkblog = {}));
+var mkblog;
+(function (mkblog) {
+    'use strict';
+    /**
+    * Controller for single post pages
+    */
+    var PostCtrl = (function () {
+        /**
+        * Creates an instance of the home controller
+        */
+        function PostCtrl(scope, post, sce, signaller, meta) {
+            meta.title = post.title;
+            meta.bigImage = (post.featuredImage && post.featuredImage != "" ? post.featuredImage : "");
+            meta.smallImage = (post.featuredImage && post.featuredImage != "" ? post.featuredImage : "");
+            scope.post = post;
+            scope.post.content = sce.trustAsHtml(post.content);
+            signaller();
+        }
+        PostCtrl.$inject = ["$scope", "post", "$sce", "signaller", "meta"];
+        return PostCtrl;
+    })();
+    mkblog.PostCtrl = PostCtrl;
 })(mkblog || (mkblog = {}));
 var mkblog;
 (function (mkblog) {
@@ -208,9 +281,11 @@ var mkblog;
         /**
         * Creates an instance of the home controller
         */
-        function ContactCtrl(http) {
+        function ContactCtrl(http, signaller, meta) {
             this.http = http;
+            meta.defaults();
             this.mail = { email: "", name: "", message: "" };
+            signaller();
         }
         /*
         * Sends an email to the modepress admin
@@ -236,7 +311,7 @@ var mkblog;
             });
         };
         // The dependency injector
-        ContactCtrl.$inject = ["$http"];
+        ContactCtrl.$inject = ["$http", "signaller", "meta"];
         return ContactCtrl;
     })();
     mkblog.ContactCtrl = ContactCtrl;
@@ -248,8 +323,18 @@ var mkblog;
 (function (mkblog) {
     'use strict';
     angular.module("mkblog", ["ui.router", 'ngSanitize', 'chieffancypants.loadingBar'])
+        .factory("signaller", function () {
+        return function () {
+            setTimeout(function () { window.prerenderReady = true; }, 500);
+        };
+    })
+        .factory("meta", ["$rootScope", function (rootScope) {
+            return rootScope.meta;
+        }])
         .config(mkblog.Config)
         .run(["$rootScope", "$location", "$window", function ($rootScope, $location, $window) {
+            // Create the meta object
+            $rootScope.meta = new mkblog.Meta();
             // This tells Google analytics to count a new page view on each state change
             $rootScope.$on('$stateChangeSuccess', function (event) {
                 if (!$window.ga)
@@ -258,18 +343,23 @@ var mkblog;
             });
         }])
         .constant("apiURL", "./api")
+        .controller("simpleCtrl", mkblog.SimpleCtrl)
         .controller("footerCtrl", mkblog.FooterCtrl)
         .controller("homeCtrl", mkblog.HomeCtrl)
-        .controller("blogCtrl", mkblog.BlogCtrl)
+        .controller("postCtrl", mkblog.PostCtrl)
+        .controller("projectsCtrl", mkblog.ProjectsCtrl)
         .controller("contactCtrl", mkblog.ContactCtrl);
 })(mkblog || (mkblog = {}));
 /// <reference path="lib/definitions/jquery.d.ts" />
 /// <reference path="lib/definitions/angular.d.ts" />
 /// <reference path="lib/definitions/angular-ui-router.d.ts" />
 /// <reference path="lib/definitions/modepress.d.ts" />
+/// <reference path="lib/Meta.ts" />
 /// <reference path="lib/Config.ts" />
+/// <reference path="lib/controllers/SimpleCtrl.ts" />
 /// <reference path="lib/controllers/FooterCtrl.ts" />
-/// <reference path="lib/controllers/BlogCtrl.ts" />
+/// <reference path="lib/controllers/ProjectsCtrl.ts" />
 /// <reference path="lib/controllers/HomeCtrl.ts" />
+/// <reference path="lib/controllers/PostCtrl.ts" />
 /// <reference path="lib/controllers/ContactCtrl.ts" />
 /// <reference path="lib/Application.ts" /> 

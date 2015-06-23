@@ -19,13 +19,15 @@
         public index: number;
         public limit: number;
         public last: number;
+        public signaller: Function;
+        public meta: Meta;
 
-        public static $inject = ["$http", "apiURL", "$stateParams", "$sce"];
+        public static $inject = ["$http", "apiURL", "$stateParams", "$sce", "signaller", "meta"];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(http: ng.IHttpService, apiURL: string, stateParams: any, sce: ng.ISCEService)
+        constructor(http: ng.IHttpService, apiURL: string, stateParams: any, sce: ng.ISCEService, signaller: Function, meta: Meta)
         {
             this.http = http;
             this.posts = [];
@@ -39,6 +41,11 @@
             this.author = stateParams.author || "";
             this.category = stateParams.category || "";
             this.tag = stateParams.tag || "";
+            this.signaller = signaller;
+            this.meta = meta;
+
+            this.meta.description = "Well it looks like we've got news!";
+
             this.getPosts();
         }
 
@@ -80,6 +87,7 @@
                 }
 
                 that.last = posts.data.count;
+                that.signaller();
             });
         }
 

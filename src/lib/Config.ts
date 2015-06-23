@@ -16,24 +16,21 @@
         {
             // Creates nice URLs
             $locationProvider.html5Mode(true);
-
+            
             // if the path doesn't match any of the urls you configured
             // 'otherwise' will take care of routing back to the index
             routeProvider.otherwise("/");
-
+            
             // Create the states
             stateProvider.state("home", { url: "/?author&category&tag&index", templateUrl: "templates/home.html", controller: "homeCtrl", controllerAs: "controller" });
-            stateProvider.state("about", { url: "/about", templateUrl: "templates/about.html" });
+            stateProvider.state("about", { url: "/about", templateUrl: "templates/about.html", controller: "simpleCtrl" });
             stateProvider.state("contact", { url: "/contact", templateUrl: "templates/contact.html", controller: "contactCtrl", controllerAs: "controller" });
-            stateProvider.state("projects", { url: "/projects", templateUrl: "templates/projects.html" });
-
-            // Prior to the blog state loading, make sure the categories are downloaded
-            stateProvider.state("blog", { url: "/blog?author&category&tag&index", templateUrl: "templates/projects.html", controller: "blogCtrl", controllerAs: "controller" });
+            stateProvider.state("projects", { url: "/projects?author&category&tag&index", templateUrl: "templates/projects.html", controller: "projectsCtrl", controllerAs: "controller" });
 
             // Download the post prior to loading this state
             // then assign the post to the scope
             stateProvider.state("post", {
-                url: "/post/:slug", templateUrl: "templates/post.html",
+                url: "/post/:slug", templateUrl: "templates/post.html", controller: "postCtrl",
                 resolve: {
                     post: ["$http", "apiURL", "$stateParams", function ($http: ng.IHttpService, apiURL: string, stateParams)
                     {
@@ -45,12 +42,7 @@
                             return posts.data.data;
                         });
                     }]
-                },
-                controller: ["$scope", "post", "$sce", function (scope: any, post: modepress.IPost, sce: ng.ISCEService)
-                {
-                    scope.post = post;
-                    scope.post.content = sce.trustAsHtml(post.content);
-                }]
+                }
             });           
         }
 	}

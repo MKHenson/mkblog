@@ -23,8 +23,10 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="lib\controllers\ContactCtrl.ts" />
-    <TypeScriptCompile Include="lib\controllers\BlogCtrl.ts" />
+    <TypeScriptCompile Include="lib\controllers\ProjectsCtrl.ts" />
     <TypeScriptCompile Include="lib\controllers\FooterCtrl.ts" />
+    <TypeScriptCompile Include="lib\controllers\PostCtrl.ts" />
+    <TypeScriptCompile Include="lib\controllers\SimpleCtrl.ts" />
     <TypeScriptCompile Include="lib\definitions\angular-ui-router.d.ts" />
     <TypeScriptCompile Include="lib\Config.ts" />
     <TypeScriptCompile Include="lib\controllers\HomeCtrl.ts" />
@@ -32,6 +34,7 @@
     <TypeScriptCompile Include="lib\definitions\jquery.d.ts" />
     <TypeScriptCompile Include="lib\Application.ts" />
     <TypeScriptCompile Include="lib\definitions\modepress.d.ts" />
+    <TypeScriptCompile Include="lib\Meta.ts" />
     <TypeScriptCompile Include="_references.ts" />
   </ItemGroup>
   <ItemGroup>
