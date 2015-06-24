@@ -30,6 +30,8 @@ module mkblog
                 if (!(<any>$window).ga)
                     return;
 
+                (<Meta>$rootScope.meta).url = $location.absUrl();
+
                 (<any>$window).ga('send', 'pageview', { page: $location.path() });
             });
         }])

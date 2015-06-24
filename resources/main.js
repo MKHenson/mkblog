@@ -42,6 +42,7 @@ var mkblog;
         function Config(routeProvider, stateProvider, $locationProvider) {
             // Creates nice URLs
             $locationProvider.html5Mode(true);
+            $locationProvider.hashPrefix('!');
             // if the path doesn't match any of the urls you configured
             // 'otherwise' will take care of routing back to the index
             routeProvider.otherwise("/");
@@ -339,6 +340,7 @@ var mkblog;
             $rootScope.$on('$stateChangeSuccess', function (event) {
                 if (!$window.ga)
                     return;
+                $rootScope.meta.url = $location.absUrl();
                 $window.ga('send', 'pageview', { page: $location.path() });
             });
         }])
