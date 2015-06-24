@@ -17,6 +17,8 @@
             meta.title = post.title;
             meta.bigImage = (post.featuredImage && post.featuredImage != "" ? post.featuredImage : "");
             meta.smallImage = (post.featuredImage && post.featuredImage != "" ? post.featuredImage : "");
+            meta.description = (post.brief && post.brief != "" ? post.brief : "");
+            meta.brief = (post.brief && post.brief != "" ? post.brief : "");
             scope.post = post;
             scope.post.content = sce.trustAsHtml(post.content);
 

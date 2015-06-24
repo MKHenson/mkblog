@@ -6,6 +6,7 @@
         author?: string;
         title?: string;
         slug?: string;
+        brief?: string;
         content?: string;
         featuredImage?: string;
         categories?: Array<string>;

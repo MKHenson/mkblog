@@ -36,7 +36,7 @@
             this.bigImage = "";
             this.author = "Mathew Henson";
             this.website = "Mathew Henson's Blog";
-            this.url = "http://mkhenson.com";
+            this.url = this.url || "http://mkhenson.com";
             this.twitterAuthor = "@MathewKHenson";
             this.twitterSite = "@WebinateNet";
         }
