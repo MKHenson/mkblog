@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="lib\controllers\ContactCtrl.ts" />
+    <TypeScriptCompile Include="lib\controllers\PagedContent.ts" />
     <TypeScriptCompile Include="lib\controllers\ProjectsCtrl.ts" />
     <TypeScriptCompile Include="lib\controllers\FooterCtrl.ts" />
     <TypeScriptCompile Include="lib\controllers\PostCtrl.ts" />

@@ -73,6 +73,80 @@ var mkblog;
 })(mkblog || (mkblog = {}));
 var mkblog;
 (function (mkblog) {
+    /**
+    * Abstract class for controllers that page through content items.
+    */
+    var PagedContent = (function () {
+        function PagedContent(http) {
+            this.http = http;
+            this.loading = false;
+            this.error = false;
+            this.errorMsg = "";
+            this.index = 0;
+            this.limit = 10;
+            this.last = 1;
+            this.searchTerm = "";
+        }
+        /**
+        * Updates the content
+        */
+        PagedContent.prototype.updatePageContent = function () {
+        };
+        /**
+        * Gets the current page number
+        * @returns {number}
+        */
+        PagedContent.prototype.getPageNum = function () {
+            return (this.index / this.limit) + 1;
+        };
+        /**
+        * Gets the total number of pages
+        * @returns {number}
+        */
+        PagedContent.prototype.getTotalPages = function () {
+            return Math.ceil(this.last / this.limit);
+        };
+        /**
+        * Sets the page search back to index = 0
+        */
+        PagedContent.prototype.goFirst = function () {
+            this.index = 0;
+            this.updatePageContent();
+        };
+        /**
+        * Gets the last set of users
+        */
+        PagedContent.prototype.goLast = function () {
+            this.index = this.last - this.limit;
+            this.updatePageContent();
+        };
+        /**
+        * Sets the page search back to index = 0
+        */
+        PagedContent.prototype.goNext = function () {
+            this.index += this.limit;
+            this.updatePageContent();
+        };
+        /**
+        * Sets the page search back to index = 0
+        */
+        PagedContent.prototype.goPrev = function () {
+            this.index -= this.limit;
+            if (this.index < 0)
+                this.index = 0;
+            this.updatePageContent();
+        };
+        /**
+        * Called when the controller is being destroyed
+        */
+        PagedContent.prototype.onDispose = function () {
+        };
+        return PagedContent;
+    })();
+    mkblog.PagedContent = PagedContent;
+})(mkblog || (mkblog = {}));
+var mkblog;
+(function (mkblog) {
     'use strict';
     /**
     * Controller for managing the
@@ -109,50 +183,40 @@ var mkblog;
     })();
     mkblog.FooterCtrl = FooterCtrl;
 })(mkblog || (mkblog = {}));
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
 var mkblog;
 (function (mkblog) {
     'use strict';
     /**
     * Controller for the blog page
     */
-    var ProjectsCtrl = (function () {
+    var ProjectsCtrl = (function (_super) {
+        __extends(ProjectsCtrl, _super);
         /**
         * Creates an instance of the home controller
         */
         function ProjectsCtrl(http, apiURL, stateParams, signaller, scrollTop) {
-            this.http = http;
+            _super.call(this, http);
             this.posts = [];
             this.apiURL = apiURL;
             this.signaller = signaller;
             this.scrollTop = scrollTop;
             this.limit = 12;
             this.index = parseInt(stateParams.index) || 0;
-            this.last = Infinity;
             this.author = stateParams.author || "";
             this.category = stateParams.category || "";
             this.tag = stateParams.tag || "";
-            this.getPosts();
+            this.updatePageContent();
         }
-        /**
-        * Sets the page search back to index = 0
-        */
-        ProjectsCtrl.prototype.goNext = function () {
-            this.index += this.limit;
-            this.getPosts();
-        };
-        /**
-        * Sets the page search back to index = 0
-        */
-        ProjectsCtrl.prototype.goPrev = function () {
-            this.index -= this.limit;
-            if (this.index < 0)
-                this.index = 0;
-            this.getPosts();
-        };
         /**
         * Fetches a list of posts with the given GET params
         */
-        ProjectsCtrl.prototype.getPosts = function () {
+        ProjectsCtrl.prototype.updatePageContent = function () {
             var that = this;
             this.http.get(this.apiURL + "/posts/get-posts?visibility=public&tags=" + that.tag + ",mkhenson&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category + "&minimal=true").then(function (posts) {
                 that.posts = posts.data.data;
@@ -172,7 +236,7 @@ var mkblog;
         // The dependency injector
         ProjectsCtrl.$inject = ["$http", "apiURL", "$stateParams", "signaller", "scrollTop"];
         return ProjectsCtrl;
-    })();
+    })(mkblog.PagedContent);
     mkblog.ProjectsCtrl = ProjectsCtrl;
 })(mkblog || (mkblog = {}));
 var mkblog;
@@ -181,17 +245,18 @@ var mkblog;
     /**
     * Controller for managing the
     */
-    var HomeCtrl = (function () {
+    var HomeCtrl = (function (_super) {
+        __extends(HomeCtrl, _super);
         /**
         * Creates an instance of the home controller
         */
         function HomeCtrl(http, apiURL, stateParams, sce, signaller, meta, scrollTop) {
-            this.http = http;
+            _super.call(this, http);
             this.posts = [];
             this.apiURL = apiURL;
             this.sce = sce;
             this.scrollTop = scrollTop;
-            this.limit = 5;
+            this.limit = 10;
             this.index = parseInt(stateParams.index) || 0;
             this.last = Infinity;
             this.author = stateParams.author || "";
@@ -199,29 +264,12 @@ var mkblog;
             this.tag = stateParams.tag || "";
             this.signaller = signaller;
             this.meta = meta;
-            this.meta.description = "Well it looks like we've got news!";
-            this.getPosts();
+            this.updatePageContent();
         }
-        /**
-        * Sets the page search back to index = 0
-        */
-        HomeCtrl.prototype.goNext = function () {
-            this.index += this.limit;
-            this.getPosts();
-        };
-        /**
-        * Sets the page search back to index = 0
-        */
-        HomeCtrl.prototype.goPrev = function () {
-            this.index -= this.limit;
-            if (this.index < 0)
-                this.index = 0;
-            this.getPosts();
-        };
         /**
         * Fetches a list of posts with the given GET params
         */
-        HomeCtrl.prototype.getPosts = function () {
+        HomeCtrl.prototype.updatePageContent = function () {
             var that = this;
             this.http.get(this.apiURL + "/posts/get-posts?visibility=all&tags=" + that.tag + ",mkhenson&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category).then(function (posts) {
                 that.posts = posts.data.data;
@@ -231,6 +279,7 @@ var mkblog;
                     that.posts[i].content = that.sce.trustAsHtml(brokenArr[0]);
                 }
                 that.last = posts.data.count;
+                that.meta.defaults();
                 that.scrollTop();
                 that.signaller();
             });
@@ -243,14 +292,9 @@ var mkblog;
                 "background-image": "url('" + url + "')"
             };
         };
-        /**
-        * Cleans up the controller
-        */
-        HomeCtrl.prototype.onDestroy = function () {
-        };
         HomeCtrl.$inject = ["$http", "apiURL", "$stateParams", "$sce", "signaller", "meta", "scrollTop"];
         return HomeCtrl;
-    })();
+    })(mkblog.PagedContent);
     mkblog.HomeCtrl = HomeCtrl;
 })(mkblog || (mkblog = {}));
 var mkblog;
@@ -373,6 +417,7 @@ var mkblog;
 /// <reference path="lib/definitions/modepress.d.ts" />
 /// <reference path="lib/Meta.ts" />
 /// <reference path="lib/Config.ts" />
+/// <reference path="lib/controllers/PagedContent.ts" />
 /// <reference path="lib/controllers/SimpleCtrl.ts" />
 /// <reference path="lib/controllers/FooterCtrl.ts" />
 /// <reference path="lib/controllers/ProjectsCtrl.ts" />

@@ -572,13 +572,16 @@ input:focus {
     overflow:hidden;
     background-size:auto 100%;
     background-position:center;
-     -webkit-transition: all 0.35s ease;                  
-    -moz-transition: all 0.35s ease;                 
-    -o-transition: all 0.35s ease;   
-    -ms-transition: all 0.35s ease;          
+    -webkit-transition: all 0.35s linear;
+    -moz-transition: all 0.35s linear;                 
+    -o-transition: all 0.35s linear;   
+    -ms-transition: all 0.35s linear;          
     transition: all 0.35s ease;
     position:relative;
     background-repeat:no-repeat;
+}
+.featured-image:hover {
+    background-size:auto 120%;
 }
 .pic-filler {
     position: absolute;
@@ -603,9 +606,7 @@ input:focus {
 .blackener .date {
     float: right;
 }
-.featured-image:hover {
-    background-size:auto 120%;
-}
+
 .blog-item {
     width: 33.333%;
     padding: 20px;
@@ -629,8 +630,11 @@ input:focus {
 .navigation .earlier {
     float:left;
 }
-.blog-intro, .navigation {
+.blog-intro {
     padding: 0 20px;
+}
+.navigation {
+    padding: 0;
 }
 .blog-intro .categories{
     float:right;
@@ -700,6 +704,12 @@ input:focus {
     margin: 0px 15% 50px 15%;
     padding: 30px;
 }
+.blogs .navigation {
+    margin:0;
+}
+.blogs .navigation a {
+  border-radius: 0px;
+}
 .navigation{
     margin: 0px 15% 50px 15%;
 }
@@ -722,7 +732,7 @@ input:focus {
     margin: 0 auto;
     max-width: 100%;
 }
-.loading-blue:empty, .loading-white:empty {
+.loading-blue, .loading-white {
     min-height:300px;
     background-position:center;
     background-repeat:no-repeat;
@@ -737,6 +747,10 @@ input:focus {
     -moz-animation:up-down 2s infinite linear;
     -webkit-animation:up-down 2s infinite linear;
     animation:up-down 2s infinite linear;  
+}
+.navigation .categories {
+    text-align:center;
+    padding: 15px 0 0 0;
 }
 /**
 ======================================================
@@ -927,10 +941,12 @@ input.ng-touched.ng-invalid {
 .date, .author, .author a {
     font-size:20px;
 }
-.tags, .categories, .categories a, .tags a {
+.tags, .categories, .categories a, .tags a, .blogs .navigation a {
     font-size:20px;
 }
-
+.hide {
+    visibility:hidden;
+}
 /**
 ======================================================
 				MEDIA QUERIES
@@ -956,6 +972,21 @@ input.ng-touched.ng-invalid {
         width:auto;
         padding:10px 50px 50px 50px;
         margin:0px;
+    }
+    .navigation .hide {
+        display:none;
+    }
+    .navigation {
+        margin: 0px 15% 5px 15%;
+    }
+    .navigation a {
+        display: block;
+        margin: 0 0 10px 0;
+    }
+    .navigation .categories {
+        clear: both;
+        text-align: left;
+        padding: 15px 0;
     }
 }
 @media screen and (max-width:850px) {
@@ -1045,7 +1076,9 @@ input.ng-touched.ng-invalid {
     .blog-page .date {
         float: none;
     }
-
+    .navigation .hide {
+        display:none;
+    }
 }
 /* smartphones, iPhone, portrait 480x320 phones */ 
 @media screen and (max-width:390px)

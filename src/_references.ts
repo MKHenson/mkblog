@@ -5,6 +5,7 @@
 
 /// <reference path="lib/Meta.ts" />
 /// <reference path="lib/Config.ts" />
+/// <reference path="lib/controllers/PagedContent.ts" />
 /// <reference path="lib/controllers/SimpleCtrl.ts" />
 /// <reference path="lib/controllers/FooterCtrl.ts" />
 /// <reference path="lib/controllers/ProjectsCtrl.ts" />

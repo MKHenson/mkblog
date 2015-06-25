@@ -15,8 +15,13 @@
 <div class="blog-container">
 
     <div class="navigation">
-        <a class="earlier" ng-show="controller.index" ng-href=".?index={{controller.index > controller.limit ? controller.index - controller.limit : 0 }}">< Earlier Posts</a>
-        <a class="older" ng-show="controller.index + controller.limit < controller.last" ng-href=".?index={{controller.index + controller.limit}}">Older Posts ></a>
+        <a class="earlier" ng-class="{hide : controller.index == 0 }" ng-href=".?index={{controller.index > controller.limit ? controller.index - controller.limit : 0 }}">< Earlier Posts</a>
+		<a class="older" ng-class="{ hide: ( controller.index + controller.limit < controller.last ) == false }" ng-href=".?index={{controller.index + controller.limit}}">Older Posts ></a>        
+		<div class="categories">
+			<span><a ng-href=".?category=mk-news">News</a></span>
+			<span><a ng-href=".?category=mk-tutorials">Tutorials</a></span>
+			<span><a ng-href=".?category=mk-projects">Projects</a></span>
+		</div>
         <div class="fix"></div>
     </div>
 

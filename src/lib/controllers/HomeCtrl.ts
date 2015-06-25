@@ -5,10 +5,9 @@
     /**
     * Controller for managing the 
     */
-	export class HomeCtrl
+    export class HomeCtrl extends PagedContent
     {
         // An array of todo items
-        private http: ng.IHttpService;
         public posts: Array<modepress.IPost>;
         public apiURL: string;
         public sce: ng.ISCEService;
@@ -30,13 +29,13 @@
 		*/
         constructor(http: ng.IHttpService, apiURL: string, stateParams: any, sce: ng.ISCEService, signaller: Function, meta: Meta, scrollTop: Function)
         {
-            this.http = http;
+            super(http)
             this.posts = [];
             this.apiURL = apiURL;
             this.sce = sce;
             this.scrollTop = scrollTop;
 
-            this.limit = 5;
+            this.limit = 10;
             this.index = parseInt(stateParams.index) || 0;
             this.last = Infinity;
 
@@ -45,36 +44,15 @@
             this.tag = stateParams.tag || "";
             this.signaller = signaller;
             this.meta = meta;
-
-            this.meta.description = "Well it looks like we've got news!";
-
-            this.getPosts();
+            
+            this.updatePageContent();
         }
-
-        /**
-        * Sets the page search back to index = 0
-        */
-        goNext()
-        {
-            this.index += this.limit;
-            this.getPosts();
-        }
-
-        /**
-        * Sets the page search back to index = 0
-        */
-        goPrev()
-        {
-            this.index -= this.limit;
-            if (this.index < 0)
-                this.index = 0;
-            this.getPosts();
-        }
+        
 
         /**
         * Fetches a list of posts with the given GET params
         */
-        getPosts()
+        updatePageContent()
         {
             var that = this;
             this.http.get<modepress.IGetPosts>(`${this.apiURL}/posts/get-posts?visibility=all&tags=${that.tag},mkhenson&index=${that.index}&limit=${that.limit}&author=${that.author}&categories=${that.category}`).then(function (posts)
@@ -89,7 +67,7 @@
                 }
 
                 that.last = posts.data.count;
-
+                that.meta.defaults();
                 that.scrollTop();
                 that.signaller();
             });
@@ -104,13 +82,6 @@
             return {
                 "background-image": "url('" + url + "')"
             }
-        }
-
-        /**
-        * Cleans up the controller
-        */
-        onDestroy()
-        {
         }
 	}
 }
