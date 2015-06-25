@@ -317,7 +317,11 @@ var mkblog;
             if (meta.brief == "") {
                 var tmp = document.createElement("DIV");
                 tmp.innerHTML = post.content;
-                meta.description = meta.brief = tmp.textContent || tmp.innerText || "";
+                meta.description = tmp.textContent || tmp.innerText || "";
+                meta.description = meta.description.replace(new RegExp(String.fromCharCode(160), "g"), " ");
+                meta.description = meta.description.replace(/^\s+|\s+$/g, '');
+                meta.description = meta.description.substr(0, 200);
+                meta.brief = meta.description;
             }
             scope.post = post;
             scope.post.content = sce.trustAsHtml(post.content);
