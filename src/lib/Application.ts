@@ -14,6 +14,18 @@ module mkblog
                     setTimeout( function () { (<any>window).prerenderReady = true; }, 500);
                 }
         })
+        .factory("scrollTop", function () 
+        {
+            return function ()
+            {
+                // Scroll div to top after page is rendered - not even sure why it keeps scrolling down :/
+                setTimeout(function ()
+                {
+                    $(".content-outer")[0].scrollTop = 0;
+
+                }, 50);
+            }
+        })
         .factory("meta", ["$rootScope", function (rootScope) 
         {
             return rootScope.meta;

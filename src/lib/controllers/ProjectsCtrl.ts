@@ -19,19 +19,21 @@
         public limit: number;
         public last: number;
         public signaller: Function;
+        public scrollTop: Function;
 
 		// The dependency injector
-        public static $inject = ["$http", "apiURL", "$stateParams", "signaller" ];
+        public static $inject = ["$http", "apiURL", "$stateParams", "signaller", "scrollTop"];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(http: ng.IHttpService, apiURL: string, stateParams: any, signaller: Function)
+        constructor(http: ng.IHttpService, apiURL: string, stateParams: any, signaller: Function, scrollTop: Function)
 		{
             this.http = http;
             this.posts = [];
             this.apiURL = apiURL;
             this.signaller = signaller;
+            this.scrollTop = scrollTop;
 
             this.limit = 12;
             this.index = parseInt(stateParams.index) || 0;
@@ -74,11 +76,7 @@
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
 
-                // Scroll div to top after page is rendered - not even sure why it keeps scrolling down :/
-                setTimeout(function() {
-                    $(".content-outer")[0].scrollTop = 0;
-                }, 50);
-
+                that.scrollTop();
                 that.signaller(); 
             });
         }

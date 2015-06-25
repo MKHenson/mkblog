@@ -119,11 +119,12 @@ var mkblog;
         /**
         * Creates an instance of the home controller
         */
-        function ProjectsCtrl(http, apiURL, stateParams, signaller) {
+        function ProjectsCtrl(http, apiURL, stateParams, signaller, scrollTop) {
             this.http = http;
             this.posts = [];
             this.apiURL = apiURL;
             this.signaller = signaller;
+            this.scrollTop = scrollTop;
             this.limit = 12;
             this.index = parseInt(stateParams.index) || 0;
             this.last = Infinity;
@@ -156,10 +157,7 @@ var mkblog;
             this.http.get(this.apiURL + "/posts/get-posts?visibility=public&tags=" + that.tag + ",mkhenson&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category + "&minimal=true").then(function (posts) {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
-                // Scroll div to top after page is rendered - not even sure why it keeps scrolling down :/
-                setTimeout(function () {
-                    $(".content-outer")[0].scrollTop = 0;
-                }, 50);
+                that.scrollTop();
                 that.signaller();
             });
         };
@@ -172,7 +170,7 @@ var mkblog;
             };
         };
         // The dependency injector
-        ProjectsCtrl.$inject = ["$http", "apiURL", "$stateParams", "signaller"];
+        ProjectsCtrl.$inject = ["$http", "apiURL", "$stateParams", "signaller", "scrollTop"];
         return ProjectsCtrl;
     })();
     mkblog.ProjectsCtrl = ProjectsCtrl;
@@ -187,11 +185,12 @@ var mkblog;
         /**
         * Creates an instance of the home controller
         */
-        function HomeCtrl(http, apiURL, stateParams, sce, signaller, meta) {
+        function HomeCtrl(http, apiURL, stateParams, sce, signaller, meta, scrollTop) {
             this.http = http;
             this.posts = [];
             this.apiURL = apiURL;
             this.sce = sce;
+            this.scrollTop = scrollTop;
             this.limit = 5;
             this.index = parseInt(stateParams.index) || 0;
             this.last = Infinity;
@@ -232,10 +231,7 @@ var mkblog;
                     that.posts[i].content = that.sce.trustAsHtml(brokenArr[0]);
                 }
                 that.last = posts.data.count;
-                // Scroll div to top after page is rendered - not even sure why it keeps scrolling down :/
-                setTimeout(function () {
-                    $(".content-outer")[0].scrollTop = 0;
-                }, 50);
+                that.scrollTop();
                 that.signaller();
             });
         };
@@ -252,7 +248,7 @@ var mkblog;
         */
         HomeCtrl.prototype.onDestroy = function () {
         };
-        HomeCtrl.$inject = ["$http", "apiURL", "$stateParams", "$sce", "signaller", "meta"];
+        HomeCtrl.$inject = ["$http", "apiURL", "$stateParams", "$sce", "signaller", "meta", "scrollTop"];
         return HomeCtrl;
     })();
     mkblog.HomeCtrl = HomeCtrl;
@@ -267,7 +263,7 @@ var mkblog;
         /**
         * Creates an instance of the home controller
         */
-        function PostCtrl(scope, post, sce, signaller, meta) {
+        function PostCtrl(scope, post, sce, signaller, meta, scrollTop) {
             meta.title = post.title;
             meta.bigImage = (post.featuredImage && post.featuredImage != "" ? post.featuredImage : "");
             meta.smallImage = (post.featuredImage && post.featuredImage != "" ? post.featuredImage : "");
@@ -275,9 +271,10 @@ var mkblog;
             meta.brief = (post.brief && post.brief != "" ? post.brief : "");
             scope.post = post;
             scope.post.content = sce.trustAsHtml(post.content);
+            scrollTop();
             signaller();
         }
-        PostCtrl.$inject = ["$scope", "post", "$sce", "signaller", "meta"];
+        PostCtrl.$inject = ["$scope", "post", "$sce", "signaller", "meta", "scrollTop"];
         return PostCtrl;
     })();
     mkblog.PostCtrl = PostCtrl;
@@ -337,6 +334,14 @@ var mkblog;
         .factory("signaller", function () {
         return function () {
             setTimeout(function () { window.prerenderReady = true; }, 500);
+        };
+    })
+        .factory("scrollTop", function () {
+        return function () {
+            // Scroll div to top after page is rendered - not even sure why it keeps scrolling down :/
+            setTimeout(function () {
+                $(".content-outer")[0].scrollTop = 0;
+            }, 50);
         };
     })
         .factory("meta", ["$rootScope", function (rootScope) {

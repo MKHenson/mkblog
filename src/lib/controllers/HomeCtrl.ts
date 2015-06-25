@@ -20,19 +20,21 @@
         public limit: number;
         public last: number;
         public signaller: Function;
+        public scrollTop: Function;
         public meta: Meta;
 
-        public static $inject = ["$http", "apiURL", "$stateParams", "$sce", "signaller", "meta"];
+        public static $inject = ["$http", "apiURL", "$stateParams", "$sce", "signaller", "meta", "scrollTop"];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(http: ng.IHttpService, apiURL: string, stateParams: any, sce: ng.ISCEService, signaller: Function, meta: Meta)
+        constructor(http: ng.IHttpService, apiURL: string, stateParams: any, sce: ng.ISCEService, signaller: Function, meta: Meta, scrollTop: Function)
         {
             this.http = http;
             this.posts = [];
             this.apiURL = apiURL;
             this.sce = sce;
+            this.scrollTop = scrollTop;
 
             this.limit = 5;
             this.index = parseInt(stateParams.index) || 0;
@@ -88,12 +90,7 @@
 
                 that.last = posts.data.count;
 
-                // Scroll div to top after page is rendered - not even sure why it keeps scrolling down :/
-                setTimeout(function ()
-                {
-                    $(".content-outer")[0].scrollTop = 0;
-                }, 50);
-
+                that.scrollTop();
                 that.signaller();
             });
         }
