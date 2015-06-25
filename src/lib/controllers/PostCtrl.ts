@@ -19,6 +19,15 @@
             meta.smallImage = (post.featuredImage && post.featuredImage != "" ? post.featuredImage : "");
             meta.description = (post.brief && post.brief != "" ? post.brief : "");
             meta.brief = (post.brief && post.brief != "" ? post.brief : "");
+
+            // If no brief, then get the text content of the post itself
+            if (meta.brief == "")
+            {
+                var tmp = document.createElement("DIV");
+                tmp.innerHTML = post.content;
+                meta.description = meta.brief = tmp.textContent || tmp.innerText || "";
+            }
+
             scope.post = post;
             scope.post.content = sce.trustAsHtml(post.content);
             scrollTop();

@@ -14,11 +14,11 @@ var mkblog;
         * Sets the values to their default state
         */
         Meta.prototype.defaults = function () {
-            this.description = "Mathew Henson's blog page, dublin based web developer";
+            this.description = "Mathew Henson's blog page, Dublin based web developer with years of experience in backend and frontend application development";
             this.title = "Mathew Henson's blog";
-            this.brief = "Mat's blog of game, server and app development based in Dublin";
-            this.smallImage = "";
-            this.bigImage = "";
+            this.brief = this.description;
+            this.smallImage = "./media/images/mathew-profile.png";
+            this.bigImage = "./media/images/mathew-profile.png";
             this.author = "Mathew Henson";
             this.website = "Mathew Henson's Blog";
             this.url = this.url || "http://mkhenson.com";
@@ -313,6 +313,12 @@ var mkblog;
             meta.smallImage = (post.featuredImage && post.featuredImage != "" ? post.featuredImage : "");
             meta.description = (post.brief && post.brief != "" ? post.brief : "");
             meta.brief = (post.brief && post.brief != "" ? post.brief : "");
+            // If no brief, then get the text content of the post itself
+            if (meta.brief == "") {
+                var tmp = document.createElement("DIV");
+                tmp.innerHTML = post.content;
+                meta.description = meta.brief = tmp.textContent || tmp.innerText || "";
+            }
             scope.post = post;
             scope.post.content = sce.trustAsHtml(post.content);
             scrollTop();
@@ -336,6 +342,9 @@ var mkblog;
         function ContactCtrl(http, signaller, meta) {
             this.http = http;
             meta.defaults();
+            meta.title = "Contact Mathew Henson";
+            meta.description = "If you are looking for a contract web developer around Dublin, with years of experience in both front and backend technologies, send me an email in the contact form below.";
+            meta.brief = meta.description;
             this.mail = { email: "", name: "", message: "" };
             signaller();
         }

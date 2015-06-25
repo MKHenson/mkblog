@@ -29,11 +29,11 @@
         */
         defaults()
         {
-            this.description = "Mathew Henson's blog page, dublin based web developer";
+            this.description = "Mathew Henson's blog page, Dublin based web developer with years of experience in backend and frontend application development";
             this.title = "Mathew Henson's blog"
-            this.brief = "Mat's blog of game, server and app development based in Dublin";
-            this.smallImage = "";
-            this.bigImage = "";
+            this.brief = this.description;
+            this.smallImage = "./media/images/mathew-profile.png";
+            this.bigImage = "./media/images/mathew-profile.png";
             this.author = "Mathew Henson";
             this.website = "Mathew Henson's Blog";
             this.url = this.url || "http://mkhenson.com";

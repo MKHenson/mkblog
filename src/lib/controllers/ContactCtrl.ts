@@ -21,6 +21,11 @@
 		{
             this.http = http;
             meta.defaults();
+
+            meta.title = "Contact Mathew Henson";
+            meta.description = "If you are looking for a contract web developer around Dublin, with years of experience in both front and backend technologies, send me an email in the contact form below.";
+            meta.brief = meta.description;
+
             this.mail = { email: "", name: "", message: "" };
             signaller();
 		}
