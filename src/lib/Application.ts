@@ -1,4 +1,6 @@
-﻿/**
+﻿declare var _url: string;
+
+/**
  * The main entry point of the application
  */
 module mkblog
