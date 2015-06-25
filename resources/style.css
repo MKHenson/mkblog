@@ -639,6 +639,10 @@ input:focus {
     text-align:center;
     margin:200px 0;
 }
+.post-content img {
+  max-width: 100%;
+  height: auto;
+}
 .clients p {
     margin: 0;
     text-align:center
@@ -967,7 +971,7 @@ input.ng-touched.ng-invalid {
 }
 @media screen and (max-width:655px) {
     .post-content {
-        padding:30px;
+        padding:0 30px 30px 30px;
         width:auto;
         margin:20px 0;
     }
@@ -1017,7 +1021,7 @@ input.ng-touched.ng-invalid {
  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
 @media screen and (max-width:540px) { 
     .blog-page {
-        margin: 0px 10% 20px 10%;
+        margin: 0px 2% 20px 2%;
         padding: 15px;
     }
 	.footer-column {
