@@ -156,6 +156,10 @@ var mkblog;
             this.http.get(this.apiURL + "/posts/get-posts?visibility=public&tags=" + that.tag + ",mkhenson&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category + "&minimal=true").then(function (posts) {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
+                // Scroll div to top after page is rendered - not even sure why it keeps scrolling down :/
+                setTimeout(function () {
+                    $(".content-outer")[0].scrollTop = 0;
+                }, 50);
                 that.signaller();
             });
         };
@@ -228,6 +232,10 @@ var mkblog;
                     that.posts[i].content = that.sce.trustAsHtml(brokenArr[0]);
                 }
                 that.last = posts.data.count;
+                // Scroll div to top after page is rendered - not even sure why it keeps scrolling down :/
+                setTimeout(function () {
+                    $(".content-outer")[0].scrollTop = 0;
+                }, 50);
                 that.signaller();
             });
         };

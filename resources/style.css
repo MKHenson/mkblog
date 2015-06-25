@@ -723,9 +723,6 @@ input:focus {
     background-position:center;
     background-repeat:no-repeat;
 }
-.navigation a {
-    display: none;
-}
 .home-img {
     vertical-align:top;
 }

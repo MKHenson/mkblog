@@ -73,6 +73,12 @@
             {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
+
+                // Scroll div to top after page is rendered - not even sure why it keeps scrolling down :/
+                setTimeout(function() {
+                    $(".content-outer")[0].scrollTop = 0;
+                }, 50);
+
                 that.signaller(); 
             });
         }
