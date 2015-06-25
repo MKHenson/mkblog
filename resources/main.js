@@ -318,9 +318,16 @@ var mkblog;
                 var tmp = document.createElement("DIV");
                 tmp.innerHTML = post.content;
                 meta.description = tmp.textContent || tmp.innerText || "";
-                meta.description = meta.description.replace(new RegExp(String.fromCharCode(160), "g"), " ");
+                //Trim
                 meta.description = meta.description.replace(/^\s+|\s+$/g, '');
+                // Remove nbsp
+                meta.description = meta.description.replace(new RegExp(String.fromCharCode(160), "g"), " ");
+                // Limit length
                 meta.description = meta.description.substr(0, 155);
+                //This javascript replaces all 3 types of line breaks with a space
+                meta.description = meta.description.replace(/(\r\n|\n|\r)/gm, " ");
+                //Replace all double white spaces with single spaces
+                meta.description = meta.description.replace(/\s+/g, " ");
                 meta.brief = meta.description;
             }
             scope.post = post;
