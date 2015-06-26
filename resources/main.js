@@ -47,7 +47,8 @@ var mkblog;
             // 'otherwise' will take care of routing back to the index
             routeProvider.otherwise("/");
             // Create the states
-            stateProvider.state("home", { url: "/?author&category&tag&index", templateUrl: "templates/home.html", controller: "homeCtrl", controllerAs: "controller" });
+            stateProvider.state("home", { url: "/", abstract: true, templateUrl: "templates/home.html", controller: "homeCtrl", controllerAs: "controller" });
+            stateProvider.state("home.posts", { url: "?author&category&tag&index", templateUrl: "templates/home-posts.html", controller: "homeSubCtrl", controllerAs: "subController" });
             stateProvider.state("about", { url: "/about", templateUrl: "templates/about.html", controller: "simpleCtrl" });
             stateProvider.state("contact", { url: "/contact", templateUrl: "templates/contact.html", controller: "contactCtrl", controllerAs: "controller" });
             stateProvider.state("projects", { url: "/projects?author&category&tag&index", templateUrl: "templates/projects.html", controller: "projectsCtrl", controllerAs: "controller" });
@@ -170,10 +171,10 @@ var mkblog;
         function FooterCtrl(scope, http, apiURL) {
             scope.posts = [];
             var that = this;
-            http.get(apiURL + "/posts/get-posts?limit=5&minimal=true&visibility=public").then(function (posts) {
+            http.get(apiURL + "/posts/get-posts?rtags=mkhenson&limit=5&minimal=true&visibility=public").then(function (posts) {
                 scope.posts = posts.data.data;
             });
-            http.get(apiURL + "/posts/get-posts?limit=5&minimal=true&visibility=all").then(function (posts) {
+            http.get(apiURL + "/posts/get-posts?rtags=mkhenson&limit=5&minimal=true&visibility=all").then(function (posts) {
                 scope.allPosts = posts.data.data;
             });
         }
@@ -218,7 +219,7 @@ var mkblog;
         */
         ProjectsCtrl.prototype.updatePageContent = function () {
             var that = this;
-            this.http.get(this.apiURL + "/posts/get-posts?visibility=public&tags=" + that.tag + ",mkhenson&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category + "&minimal=true").then(function (posts) {
+            this.http.get(this.apiURL + "/posts/get-posts?visibility=public&tags=" + that.tag + "&rtags=mkhenson&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category + "&minimal=true").then(function (posts) {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
                 that.scrollTop();
@@ -250,28 +251,24 @@ var mkblog;
         /**
         * Creates an instance of the home controller
         */
-        function HomeCtrl(http, apiURL, stateParams, sce, signaller, meta, scrollTop) {
+        function HomeCtrl(http, apiURL, sce, signaller, meta, scrollTop) {
             _super.call(this, http);
             this.posts = [];
             this.apiURL = apiURL;
             this.sce = sce;
             this.scrollTop = scrollTop;
+            this.selectedTag = "";
             this.limit = 10;
-            this.index = parseInt(stateParams.index) || 0;
-            this.last = Infinity;
-            this.author = stateParams.author || "";
-            this.category = stateParams.category || "";
-            this.tag = stateParams.tag || "";
+            this.last = 1;
             this.signaller = signaller;
             this.meta = meta;
-            this.updatePageContent();
         }
         /**
         * Fetches a list of posts with the given GET params
         */
         HomeCtrl.prototype.updatePageContent = function () {
             var that = this;
-            this.http.get(this.apiURL + "/posts/get-posts?visibility=all&tags=" + that.tag + ",mkhenson&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category).then(function (posts) {
+            this.http.get(this.apiURL + "/posts/get-posts?visibility=all&tags=" + that.tag + "&rtags=mkhenson&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category).then(function (posts) {
                 that.posts = posts.data.data;
                 var brokenArr;
                 for (var i = 0, l = that.posts.length; i < l; i++) {
@@ -284,18 +281,34 @@ var mkblog;
                 that.signaller();
             });
         };
-        HomeCtrl.prototype.getBlogImageURL = function (post) {
-            var url = "/media/images/camera.jpg";
-            if (post.featuredImage && post.featuredImage != "")
-                url = post.featuredImage;
-            return {
-                "background-image": "url('" + url + "')"
-            };
-        };
-        HomeCtrl.$inject = ["$http", "apiURL", "$stateParams", "$sce", "signaller", "meta", "scrollTop"];
+        HomeCtrl.$inject = ["$http", "apiURL", "$sce", "signaller", "meta", "scrollTop"];
         return HomeCtrl;
     })(mkblog.PagedContent);
     mkblog.HomeCtrl = HomeCtrl;
+})(mkblog || (mkblog = {}));
+var mkblog;
+(function (mkblog) {
+    'use strict';
+    /**
+    * Controller for managing the
+    */
+    var HomeSubCtrl = (function () {
+        /**
+        * Creates an instance of the home controller
+        */
+        function HomeSubCtrl(scope, stateParams) {
+            scope.controller.posts;
+            scope.controller.index = parseInt(stateParams.index) || 0;
+            scope.controller.author = stateParams.author || "";
+            scope.controller.category = stateParams.category || "";
+            scope.controller.tag = stateParams.tag || "";
+            scope.controller.selectedTag = scope.controller.tag;
+            scope.controller.updatePageContent();
+        }
+        HomeSubCtrl.$inject = ["$scope", "$stateParams"];
+        return HomeSubCtrl;
+    })();
+    mkblog.HomeSubCtrl = HomeSubCtrl;
 })(mkblog || (mkblog = {}));
 var mkblog;
 (function (mkblog) {
@@ -427,6 +440,7 @@ var mkblog;
         .controller("simpleCtrl", mkblog.SimpleCtrl)
         .controller("footerCtrl", mkblog.FooterCtrl)
         .controller("homeCtrl", mkblog.HomeCtrl)
+        .controller("homeSubCtrl", mkblog.HomeSubCtrl)
         .controller("postCtrl", mkblog.PostCtrl)
         .controller("projectsCtrl", mkblog.ProjectsCtrl)
         .controller("contactCtrl", mkblog.ContactCtrl);
@@ -442,6 +456,7 @@ var mkblog;
 /// <reference path="lib/controllers/FooterCtrl.ts" />
 /// <reference path="lib/controllers/ProjectsCtrl.ts" />
 /// <reference path="lib/controllers/HomeCtrl.ts" />
+/// <reference path="lib/controllers/HomeSubCtrl.ts" />
 /// <reference path="lib/controllers/PostCtrl.ts" />
 /// <reference path="lib/controllers/ContactCtrl.ts" />
 /// <reference path="lib/Application.ts" /> 

@@ -53,6 +53,7 @@ module mkblog
         .controller("simpleCtrl", SimpleCtrl)
         .controller("footerCtrl", FooterCtrl)
         .controller("homeCtrl", HomeCtrl)
+        .controller("homeSubCtrl", HomeSubCtrl)
         .controller("postCtrl", PostCtrl)
         .controller("projectsCtrl", ProjectsCtrl)
         .controller("contactCtrl", ContactCtrl)

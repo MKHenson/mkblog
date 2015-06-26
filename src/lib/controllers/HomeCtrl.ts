@@ -18,34 +18,28 @@
         public index: number;
         public limit: number;
         public last: number;
+        public selectedTag: string;
         public signaller: Function;
         public scrollTop: Function;
         public meta: Meta;
 
-        public static $inject = ["$http", "apiURL", "$stateParams", "$sce", "signaller", "meta", "scrollTop"];
+        public static $inject = ["$http", "apiURL", "$sce", "signaller", "meta", "scrollTop"];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(http: ng.IHttpService, apiURL: string, stateParams: any, sce: ng.ISCEService, signaller: Function, meta: Meta, scrollTop: Function)
+        constructor(http: ng.IHttpService, apiURL: string, sce: ng.ISCEService, signaller: Function, meta: Meta, scrollTop: Function)
         {
             super(http)
             this.posts = [];
             this.apiURL = apiURL;
             this.sce = sce;
             this.scrollTop = scrollTop;
-
+            this.selectedTag = "";
             this.limit = 10;
-            this.index = parseInt(stateParams.index) || 0;
-            this.last = Infinity;
-
-            this.author = stateParams.author || "";
-            this.category = stateParams.category || "";
-            this.tag = stateParams.tag || "";
+            this.last = 1;
             this.signaller = signaller;
             this.meta = meta;
-            
-            this.updatePageContent();
         }
         
 
@@ -55,7 +49,7 @@
         updatePageContent()
         {
             var that = this;
-            this.http.get<modepress.IGetPosts>(`${this.apiURL}/posts/get-posts?visibility=all&tags=${that.tag},mkhenson&index=${that.index}&limit=${that.limit}&author=${that.author}&categories=${that.category}`).then(function (posts)
+            this.http.get<modepress.IGetPosts>(`${this.apiURL}/posts/get-posts?visibility=all&tags=${that.tag}&rtags=mkhenson&index=${that.index}&limit=${that.limit}&author=${that.author}&categories=${that.category}`).then(function (posts)
             {
                 that.posts = posts.data.data;
                 var brokenArr;
@@ -71,17 +65,6 @@
                 that.scrollTop();
                 that.signaller();
             });
-        }
-
-        getBlogImageURL(post: modepress.IPost)
-        {
-            var url = "/media/images/camera.jpg";
-            if (post.featuredImage && post.featuredImage != "")
-                url = post.featuredImage;
-
-            return {
-                "background-image": "url('" + url + "')"
-            }
         }
 	}
 }

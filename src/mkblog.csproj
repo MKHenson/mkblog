@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="lib\controllers\ContactCtrl.ts" />
+    <TypeScriptCompile Include="lib\controllers\HomeSubCtrl.ts" />
     <TypeScriptCompile Include="lib\controllers\PagedContent.ts" />
     <TypeScriptCompile Include="lib\controllers\ProjectsCtrl.ts" />
     <TypeScriptCompile Include="lib\controllers\FooterCtrl.ts" />
@@ -66,6 +67,9 @@
     </Content>
     <Content Include="..\resources\templates\footer.html">
       <Link>html\templates\footer.html</Link>
+    </Content>
+    <Content Include="..\resources\templates\home-posts.html">
+      <Link>html\templates\home-posts.html</Link>
     </Content>
     <Content Include="..\resources\templates\home.html">
       <Link>html\templates\home.html</Link>

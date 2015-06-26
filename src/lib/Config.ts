@@ -23,7 +23,10 @@
             routeProvider.otherwise("/");
             
             // Create the states
-            stateProvider.state("home", { url: "/?author&category&tag&index", templateUrl: "templates/home.html", controller: "homeCtrl", controllerAs: "controller" });
+            stateProvider.state("home", { url: "/", abstract: true, templateUrl: "templates/home.html", controller: "homeCtrl", controllerAs: "controller" });
+
+            stateProvider.state("home.posts", { url: "?author&category&tag&index", templateUrl: "templates/home-posts.html", controller: "homeSubCtrl", controllerAs: "subController" });
+            
             stateProvider.state("about", { url: "/about", templateUrl: "templates/about.html", controller: "simpleCtrl" });
             stateProvider.state("contact", { url: "/contact", templateUrl: "templates/contact.html", controller: "contactCtrl", controllerAs: "controller" });
             stateProvider.state("projects", { url: "/projects?author&category&tag&index", templateUrl: "templates/projects.html", controller: "projectsCtrl", controllerAs: "controller" });

@@ -10,7 +10,7 @@
         <div class="categories">
             {{ post.categories.length > 0 ? "Posted in" : "" }}
             <span ng-repeat="category in post.categories">
-                <a ng-href="./blog?category={{category}}">{{category}}</a>{{$last == false ? "," : ""}}
+                <a ng-href="./?category={{category}}">{{category}}</a>{{$last == false ? "," : ""}}
             </span>
         </div>
         <div class="tags">
@@ -19,7 +19,7 @@
                 <a ng-href=".?tag={{tag}}">{{tag}}</a> {{$last == false ? ", " : ""}}
             </span>
         </div>
-        <div class="author">Posted by <a ng-href="./blog?author={{post.author}}">{{post.author}}</a></div>
+        <div class="author">Posted by <a ng-href="./?author={{post.author}}">{{post.author}}</a></div>
     </div>
 	<div class="fix"></div>
 </div>
