@@ -36,7 +36,7 @@
             this.sce = sce;
             this.scrollTop = scrollTop;
             this.selectedTag = "";
-            this.limit = 1;
+            this.limit = 10;
             this.last = 1;
             this.signaller = signaller;
             this.meta = meta;
