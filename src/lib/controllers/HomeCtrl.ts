@@ -36,7 +36,7 @@
             this.sce = sce;
             this.scrollTop = scrollTop;
             this.selectedTag = "";
-            this.limit = 10;
+            this.limit = 1;
             this.last = 1;
             this.signaller = signaller;
             this.meta = meta;
@@ -49,6 +49,7 @@
         updatePageContent()
         {
             var that = this;
+            that.posts = [];
             this.http.get<modepress.IGetPosts>(`${this.apiURL}/posts/get-posts?visibility=all&tags=${that.tag}&rtags=mkhenson&index=${that.index}&limit=${that.limit}&author=${that.author}&categories=${that.category}`).then(function (posts)
             {
                 that.posts = posts.data.data;

@@ -15,8 +15,8 @@
 <div class="blog-container">
 
     <div class="navigation">
-        <a class="earlier" ui-sref="home.posts({tag: controller.selectedTag, index:  controller.index > controller.limit ? controller.index - controller.limit : 0 })" ng-class="{hide : controller.index == 0 }">< Earlier Posts</a>
-		<a class="older" ui-sref="home.posts({tag: controller.selectedTag, index: controller.index + controller.limit })" ng-class="{ hide: ( controller.index + controller.limit < controller.last ) == false }">Older Posts ></a>        
+        <a class="earlier" ui-sref="home.posts({tag: controller.selectedTag, index:  controller.index > controller.limit ? controller.index - controller.limit : 0 })" ng-if="controller.index != 0">< Earlier Posts</a>
+		<a class="older"   ui-sref="home.posts({tag: controller.selectedTag, index: controller.index + controller.limit })" ng-if="( controller.index + controller.limit < controller.last )">Older Posts ></a>
 		<div class="categories">
 			<span><a ui-sref="home.posts({tag: '', index: '0'})">News</a></span>
 			<span><a ui-sref="home.posts({tag: 'mk-tutorials', index: '0'})">Tutorials</a></span>

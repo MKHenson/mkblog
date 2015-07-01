@@ -258,7 +258,7 @@ var mkblog;
             this.sce = sce;
             this.scrollTop = scrollTop;
             this.selectedTag = "";
-            this.limit = 10;
+            this.limit = 1;
             this.last = 1;
             this.signaller = signaller;
             this.meta = meta;
@@ -268,6 +268,7 @@ var mkblog;
         */
         HomeCtrl.prototype.updatePageContent = function () {
             var that = this;
+            that.posts = [];
             this.http.get(this.apiURL + "/posts/get-posts?visibility=all&tags=" + that.tag + "&rtags=mkhenson&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category).then(function (posts) {
                 that.posts = posts.data.data;
                 var brokenArr;
@@ -297,7 +298,6 @@ var mkblog;
         * Creates an instance of the home controller
         */
         function HomeSubCtrl(scope, stateParams) {
-            scope.controller.posts;
             scope.controller.index = parseInt(stateParams.index) || 0;
             scope.controller.author = stateParams.author || "";
             scope.controller.category = stateParams.category || "";

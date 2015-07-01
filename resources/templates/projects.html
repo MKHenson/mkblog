@@ -27,8 +27,8 @@
                 <div class="fix"></div>
             </div><div class="fix"></div></div>
         <div class="navigation">
-            <a class="earlier" ng-show="controller.index" ng-href="./projects?index={{controller.index > controller.limit ? controller.index - controller.limit : 0 }}">< Earlier Posts</a>
-            <a class="older" ng-show="controller.index + controller.limit < controller.last" ng-href="./projects?index={{controller.index + controller.limit}}">Older Posts ></a>
+            <a class="earlier" ng-if="controller.index" ng-href="./projects?index={{controller.index > controller.limit ? controller.index - controller.limit : 0 }}">< Earlier Posts</a>
+            <a class="older" ng-if="controller.index + controller.limit < controller.last" ng-href="./projects?index={{controller.index + controller.limit}}">Older Posts ></a>
             <div class="fix"></div>
         </div>
 	</div>

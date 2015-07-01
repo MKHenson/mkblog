@@ -14,7 +14,6 @@
 		*/
         constructor(scope: any, stateParams: any)
         {
-            scope.controller.posts
             scope.controller.index = parseInt(stateParams.index) || 0;
             scope.controller.author = stateParams.author || "";
             scope.controller.category = stateParams.category || "";
