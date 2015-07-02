@@ -7,12 +7,12 @@
     */
     export class PostCtrl
     {
-        public static $inject = ["$scope", "post", "$sce", "signaller", "meta", "scrollTop"];
+        public static $inject = ["$scope", "post", "$sce", "signaller", "meta"];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(scope: any, post: modepress.IPost, sce: ng.ISCEService, signaller: Function, meta: Meta, scrollTop: Function)
+        constructor(scope: any, post: modepress.IPost, sce: ng.ISCEService, signaller: Function, meta: Meta)
         {
             meta.title = post.title;
             meta.bigImage = (post.featuredImage && post.featuredImage != "" ? post.featuredImage : "");
@@ -48,7 +48,6 @@
 
             scope.post = post;
             scope.post.content = sce.trustAsHtml(post.content);
-            scrollTop();
             signaller();
         }
 	}

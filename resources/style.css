@@ -323,11 +323,9 @@ Please only put css rules in here for layout related requirements.
 	text-align: center;
 }
 .content-outer {
-	overflow: auto;
-	height: 100%;
     -moz-box-sizing: border-box;
     box-sizing:border-box;
-    border-top: solid 80px;
+    padding-top: 80px;
 }
 .animate {
 	-moz-animation:fadeIn 1s ease-in-out;

@@ -201,12 +201,11 @@ var mkblog;
         /**
         * Creates an instance of the home controller
         */
-        function ProjectsCtrl(http, apiURL, stateParams, signaller, scrollTop) {
+        function ProjectsCtrl(http, apiURL, stateParams, signaller) {
             _super.call(this, http);
             this.posts = [];
             this.apiURL = apiURL;
             this.signaller = signaller;
-            this.scrollTop = scrollTop;
             this.limit = 12;
             this.index = parseInt(stateParams.index) || 0;
             this.author = stateParams.author || "";
@@ -222,7 +221,6 @@ var mkblog;
             this.http.get(this.apiURL + "/posts/get-posts?visibility=public&tags=" + that.tag + "&rtags=mkhenson&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category + "&minimal=true").then(function (posts) {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
-                that.scrollTop();
                 that.signaller();
             });
         };
@@ -235,7 +233,7 @@ var mkblog;
             };
         };
         // The dependency injector
-        ProjectsCtrl.$inject = ["$http", "apiURL", "$stateParams", "signaller", "scrollTop"];
+        ProjectsCtrl.$inject = ["$http", "apiURL", "$stateParams", "signaller"];
         return ProjectsCtrl;
     })(mkblog.PagedContent);
     mkblog.ProjectsCtrl = ProjectsCtrl;
@@ -251,12 +249,11 @@ var mkblog;
         /**
         * Creates an instance of the home controller
         */
-        function HomeCtrl(http, apiURL, sce, signaller, meta, scrollTop) {
+        function HomeCtrl(http, apiURL, sce, signaller, meta) {
             _super.call(this, http);
             this.posts = [];
             this.apiURL = apiURL;
             this.sce = sce;
-            this.scrollTop = scrollTop;
             this.selectedTag = "";
             this.limit = 10;
             this.last = 1;
@@ -278,11 +275,10 @@ var mkblog;
                 }
                 that.last = posts.data.count;
                 that.meta.defaults();
-                that.scrollTop();
                 that.signaller();
             });
         };
-        HomeCtrl.$inject = ["$http", "apiURL", "$sce", "signaller", "meta", "scrollTop"];
+        HomeCtrl.$inject = ["$http", "apiURL", "$sce", "signaller", "meta"];
         return HomeCtrl;
     })(mkblog.PagedContent);
     mkblog.HomeCtrl = HomeCtrl;
@@ -320,7 +316,7 @@ var mkblog;
         /**
         * Creates an instance of the home controller
         */
-        function PostCtrl(scope, post, sce, signaller, meta, scrollTop) {
+        function PostCtrl(scope, post, sce, signaller, meta) {
             meta.title = post.title;
             meta.bigImage = (post.featuredImage && post.featuredImage != "" ? post.featuredImage : "");
             meta.smallImage = (post.featuredImage && post.featuredImage != "" ? post.featuredImage : "");
@@ -345,10 +341,9 @@ var mkblog;
             }
             scope.post = post;
             scope.post.content = sce.trustAsHtml(post.content);
-            scrollTop();
             signaller();
         }
-        PostCtrl.$inject = ["$scope", "post", "$sce", "signaller", "meta", "scrollTop"];
+        PostCtrl.$inject = ["$scope", "post", "$sce", "signaller", "meta"];
         return PostCtrl;
     })();
     mkblog.PostCtrl = PostCtrl;
@@ -413,14 +408,6 @@ var mkblog;
             setTimeout(function () { window.prerenderReady = true; }, 500);
         };
     })
-        .factory("scrollTop", function () {
-        return function () {
-            // Scroll div to top after page is rendered - not even sure why it keeps scrolling down :/
-            setTimeout(function () {
-                $(".content-outer")[0].scrollTop = 0;
-            }, 50);
-        };
-    })
         .factory("meta", ["$rootScope", function (rootScope) {
             return rootScope.meta;
         }])
@@ -434,6 +421,7 @@ var mkblog;
                     return;
                 $rootScope.meta.url = $location.absUrl();
                 $window.ga('send', 'pageview', { page: $location.path() });
+                window.scroll(0, 0);
             });
         }])
         .constant("apiURL", "./api")

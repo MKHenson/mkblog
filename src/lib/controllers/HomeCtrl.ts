@@ -20,21 +20,19 @@
         public last: number;
         public selectedTag: string;
         public signaller: Function;
-        public scrollTop: Function;
         public meta: Meta;
 
-        public static $inject = ["$http", "apiURL", "$sce", "signaller", "meta", "scrollTop"];
+        public static $inject = ["$http", "apiURL", "$sce", "signaller", "meta"];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(http: ng.IHttpService, apiURL: string, sce: ng.ISCEService, signaller: Function, meta: Meta, scrollTop: Function)
+        constructor(http: ng.IHttpService, apiURL: string, sce: ng.ISCEService, signaller: Function, meta: Meta)
         {
             super(http)
             this.posts = [];
             this.apiURL = apiURL;
             this.sce = sce;
-            this.scrollTop = scrollTop;
             this.selectedTag = "";
             this.limit = 10;
             this.last = 1;
@@ -63,7 +61,6 @@
 
                 that.last = posts.data.count;
                 that.meta.defaults();
-                that.scrollTop();
                 that.signaller();
             });
         }
