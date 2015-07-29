@@ -654,6 +654,7 @@ input:focus {
     overflow:hidden;
     text-align:center;
     margin: 50px 0 0 0;
+	background-repeat: round;
 }
 .tree, .rex, .rex-outer {
     position:absolute;
