@@ -448,6 +448,12 @@ a .nav-item {
     font-weight:bold;
     text-align:center;
 }
+.blogs h1 {
+    margin: 10px 0 60px 0;
+    font-weight:lighter;
+    font-size:60px;
+    text-align:center;
+}
 .header h1 {
 	margin:70px 0 0 0;
 }
@@ -478,6 +484,7 @@ a .nav-item {
 .contact-form h1 {
 	text-align:center;
 	margin: 40px 0 80px 0;
+    font-size:45px;
 }
 .contact-form {
   padding: 40px 80px 60px 80px;
@@ -898,13 +905,22 @@ a .nav-item{
 	line-height: 55px;
 	text-align:center;
 }
+.about h1 {
+    text-align:center;
+	margin: 0 0 50px 0;
+    font-size:60px;
+    font-weight:lighter;
+    color:inherit;
+}
 .tech{
 	background:#eee;
 }
-.tech h1, .clients h1 {
+.tech h2, .clients h2 {
 	text-align:center;
 	padding: 80px 0 40px 0;
 	margin: 0;
+    font-size:50px;
+    font-weight:lighter;
 }
 .clients-content {
 	padding: 0 100px 50px 100px;
@@ -948,7 +964,7 @@ input.ng-touched.ng-invalid {
 ======================================================
 **/
 @media screen and (max-width:961px) {  
-	.tech h1, .clients h1 {
+	.tech h2, .clients h2 {
 		padding: 60px 0;
 	}
 	.clients-content {
