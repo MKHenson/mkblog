@@ -1,6 +1,6 @@
-<div class="blog-page animate" ng-repeat="post in controller.posts">
+<article class="blog-page animate" ng-repeat="post in controller.posts">
 	<div class="date">{{post.createdOn | date:"dd MMMM yyyy"}}</div>
-	<div class="blog-header"><a ng-href="./post/{{post.slug}}">{{post.title}}</a></div>
+	<h3 class="blog-header"><a ng-href="./post/{{post.slug}}">{{post.title}}</a></h3>
 	<div class="author">Posted by <a ng-href=".?author={{post.author}}">{{post.author}}</a></div>
 	<div class="post-body" ng-bind-html="post.content"></div>
 	<div class="tags">
@@ -10,4 +10,4 @@
 		</span>
 	</div>
 	<a ng-href="./post/{{post.slug}}"><div class="button blue">Read More</div></a>
-</div>
+</article>

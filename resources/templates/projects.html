@@ -1,17 +1,17 @@
 <div class="blog">
 	<div class="blogs">
-
+		<h1>Projects</h1>
         <div class="blog-intro">
             <div class="categories">
                 <!-- span><a ng-href="./projects?category=artistic">Artistic</a></span -->
             </div>
             <div class="fix"></div>
         </div>
-        <div class="loading-blue"><div class="blog-item animate" ng-repeat="post in controller.posts">
+        <div class="loading-blue"><article class="blog-item animate" ng-repeat="post in controller.posts">
                 <div class="featured-image" ng-style="controller.getBlogImageURL(post)">
                     <a ng-href="./post/{{post.slug}}"><div class="pic-filler"></div></a>
                     <div class="blackener">
-                        <div class="blog-header"><a ng-href="./post/{{post.slug}}">{{post.title}}</a></div>
+                        <h2 class="blog-header"><a ng-href="./post/{{post.slug}}">{{post.title}}</a></h2>
                         <div class="categories">
                             {{post.categories.length > 0 ? "In": ""}}
                             <span ng-repeat="category in post.categories">
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="fix"></div>
-            </div><div class="fix"></div></div>
+            </article><div class="fix"></div></div>
         <div class="navigation">
             <a class="earlier" ng-if="controller.index" ng-href="./projects?index={{controller.index > controller.limit ? controller.index - controller.limit : 0 }}">< Earlier Posts</a>
             <a class="older" ng-if="controller.index + controller.limit < controller.last" ng-href="./projects?index={{controller.index + controller.limit}}">Older Posts ></a>
