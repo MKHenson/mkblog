@@ -13,17 +13,17 @@
     "noImplicitAny" : false
   },
   "files": [
-        "lib/_references.d.ts",
-        "lib/meta.ts",
-        "lib/config.ts",
-        "lib/controllers/paged-content.ts",
-        "lib/controllers/simple-ctrl.ts",
-        "lib/controllers/footer-ctrl.ts",
-        "lib/controllers/projects-ctrl.ts",
-        "lib/controllers/home-ctrl.ts",
-        "lib/controllers/home-sub-ctrl.ts",
-        "lib/controllers/post-ctrl.ts",
-        "lib/controllers/contact-ctrl.ts",
-        "lib/application.ts"
+        "src/_references.d.ts",
+        "src/meta.ts",
+        "src/config.ts",
+        "src/controllers/paged-content.ts",
+        "src/controllers/simple-ctrl.ts",
+        "src/controllers/footer-ctrl.ts",
+        "src/controllers/projects-ctrl.ts",
+        "src/controllers/home-ctrl.ts",
+        "src/controllers/home-sub-ctrl.ts",
+        "src/controllers/post-ctrl.ts",
+        "src/controllers/contact-ctrl.ts",
+        "src/application.ts"
   ]
 }
