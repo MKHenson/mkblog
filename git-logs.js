@@ -3,7 +3,7 @@ var fs = require('fs')
 var exec = require('child_process').exec;
 var child;
 
-var prevTag = "v0.0.15";
+var prevTag = "v0.0.19";
 var nextTag = "v0.1.0";
 
 

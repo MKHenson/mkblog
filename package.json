@@ -1,6 +1,6 @@
 {
   "name": "mkblog",
-  "version": "0.0.15",
+  "version": "0.1.0",
   "description": "A tempate for Mathew Henson's blog. The site is run using a Modepress backend",
   "main": "gulpfile.js",
   "author": "Mathew Henson",
