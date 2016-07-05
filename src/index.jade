@@ -1,0 +1,50 @@
+doctype html
+html(lang="en", ng-app="mkblog")
+	head
+		meta(charset="utf-8")
+		meta(name="viewport", content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0")
+		meta(name="fragment", content="!")
+		title(ng-bind="meta.title")
+		meta(name="description", content="{{meta.description}}")
+		meta(name="twitter:card", content="{{meta.description}}")
+		meta(name="twitter:site", content="{{meta.twitterSite}}")
+		meta(name="twitter:title", content="{{meta.title}}")
+		meta(name="twitter:description", content="{{meta.description}}")
+		meta(name="twitter:creator", content="{{meta.twitterAuthor}}")
+		meta(name="twitter:image", content="{{meta.smallImage}}")
+		meta(property="og:title", content="{{meta.title}}")
+		meta(property="og:type", content="article")
+		meta(property="og:url", content="{{meta.url}}")
+		meta(property="og:image", content="{{meta.bigImage}}")
+		meta(property="og:description", content="{{meta.description}}")
+		meta(property="og:site_name", content="{{meta.website}}")
+
+		link(rel="stylesheet",type="text/css",href=url + "/css/style.css")
+		link(rel="stylesheet",type="text/css",href=url + "/third-party/angular-loading-bar/build/loading-bar.css")
+		link(href="https://fonts.googleapis.com/css?family=Lily+Script+One", rel="stylesheet", type="text/css")
+		link(href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,300", rel="stylesheet", type="text/css")
+		script(type="text/javascript").
+			var _users = "#{usersURL}"
+			var _url = "#{url}"
+			window.prerenderReady = false;
+		script(type="text/javascript", src=url + "/third-party/jquery/dist/jquery.js")
+		script(type="text/javascript", src=url + "/third-party/angular/angular.js")
+		script(type="text/javascript", src=url + "/third-party/angular-animate/angular-animate.js")
+		script(type="text/javascript", src=url + "/third-party/angular-loading-bar/build/loading-bar.js")
+		script(type="text/javascript", src=url + "/third-party/modepress-client/dist/plugin.js")
+		script(type="text/javascript", src=url + "/third-party/angular-sanitize/angular-sanitize.js")
+		script(type="text/javascript", src=url + "/third-party/angular-ui-router/release/angular-ui-router.js")
+		script(type="text/javascript", src=url + "/templates/partials.min.js")
+		script(type="text/javascript", src=url + "/main.js")
+
+		base(href="/")
+		script(type="text/javascript").
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-32166045-1', 'auto'); ga('send', 'pageview');
+
+	body
+		div(class="container")
+			div(class="nav-outer", ng-include="'templates/nav.html'")
+			div(class="content-outer animate")
+				div(class="content animate", ui-view, state-loader)
+				div(class="fix")
+				div(class="footer", ng-include="'templates/footer.html'", ng-controller="footerCtrl as controller")
