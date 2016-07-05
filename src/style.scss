@@ -1,4 +1,5 @@
 ﻿@import 'animate';
+@import "temp-css/sprites.scss";
 
 /**
 ======================================================
@@ -290,14 +291,8 @@ button[disabled], html input[disabled] {
     -moz-box-sizing: border-box;
 	box-sizing: content-box;
 }
-.loading-state::before {
-    content:"Loading";
-    height:50px;
-    width:100%;
-    background:#ff0000;
-    background-image: url("../media/images/mathew-profile.png");
-    background-position:center;
-    background-repeat:no-repeat;
+.mathew{
+    @include sprite($mathew-profile, inline-block);
 }
 /**
 ======================================================
@@ -387,14 +382,10 @@ Please only put css rules in here for layout related requirements.
 	left: -180px;
 }
 .what-we-do-cloud-1, .what-we-do-cloud-2 {
-	background-image:url("../media/images/cloud-1.png");
-	width:143px;
-	height:46px;
+    @include sprite($cloud-1);
 }
 .what-we-do-cloud-4 {
-	background-image: url("../media/images/cloud-2.png");
-	width: 149px;
-	height: 41px;
+    @include sprite($cloud-2);
 }
 .what-we-do-cloud-1 {
 	top:0px;
@@ -696,16 +687,12 @@ input:focus {
     position:relative;
 }
 .rex-outer {
-    width:600px;
-    height:169px;
     top:40px;
     -moz-animation: move-left 20s infinite linear;
     -webkit-animation: move-left 20s infinite linear;
     animation: move-left 20s infinite linear;
 }
 .rex {
-    width:100%;
-    height:100%;
     -moz-animation:sway-small 2s infinite linear;
     -webkit-animation:sway-small 2s infinite linear;
     animation:sway-small 2s infinite linear;
@@ -827,22 +814,37 @@ a:hover {
   background-image: url("../media/images/mountain-range.png");
 }
 .rex {
-     background-image: url("../media/images/rex.png");
+    @include sprite($rex);
 }
-.tree-a{
-  background-image: url("../media/images/palm-a.png");
-  width:145px;
-  height:197px;
-  top:0px;
-  left:110px;
+.tree-a {
+    @include sprite($palm-a);
+    top:0px;
+    left:110px;
 }
-.tree-b{
-  background-image: url("../media/images/palm-b.png");
-  width:96px;
-  height:136px;
-  top:70px;
-  left:20px;
+.tree-b {
+    @include sprite($palm-b);
+    top:70px;
+    left:20px;
 }
+.youtube {
+    @include sprite($footer-youtube, inline-block);
+}
+.twitter {
+    @include sprite($footer-twitter, inline-block);
+}
+.contact-youtube {
+    @include sprite($contact-us-youtube, inline-block);
+    &:hover{
+        @include sprite($contact-us-youtube-over, inline-block);
+    }
+}
+.contact-twitter {
+    @include sprite($contact-us-twitter, inline-block);
+    &:hover{
+        @include sprite($contact-us-twitter-over, inline-block);
+    }
+}
+
 .nav-outer {
 	background:#fff;
 }
@@ -1225,6 +1227,8 @@ input.ng-touched.ng-invalid {
 ======================================================
 **/
 
+$screensize : 1800px;
+
 @-moz-keyframes bounceUp { 0% { top: 0px; } 50% { top: -5px; } 100% { top: 0px; } }
 @-webkit-keyframes bounceUp { 0% { top: 0px; } 50% { top: -5px; } 100% { top: 0px; } }
 @keyframes bounceUp { 0% { top: 0px; } 50% { top: -5px; } 100% { top: 0px; } }
@@ -1233,13 +1237,13 @@ input.ng-touched.ng-invalid {
 @-webkit-keyframes fadeIn { 0% { opacity: 0; }100% { opacity: 1; } }
 @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
 
-@-moz-keyframes moveRight { 0% { left: -200px; }	100% { left: 1300px; } }
-@-webkit-keyframes moveRight { 0% { left: -200px; }	100% { left: 1300px; } }
-@keyframes moveRight { 0% { left: -200px; }	100% { left: 1300px; } }
+@-moz-keyframes moveRight { 0% { left: -200px; }	100% { left: $screensize; } }
+@-webkit-keyframes moveRight { 0% { left: -200px; }	100% { left: $screensize; } }
+@keyframes moveRight { 0% { left: -200px; }	100% { left: $screensize; } }
 
-@-moz-keyframes move-left { 0% { left: 1300px; }	100% { left: -700px; } }
-@-webkit-keyframes move-left { 0% { left: 1300px; }	100% { left: -700px; } }
-@keyframes move-left { 0% { left: 1300px; }	100% { left: -700px; } }
+@-moz-keyframes move-left { 0% { left: $screensize; }	100% { left: -700px; } }
+@-webkit-keyframes move-left { 0% { left: $screensize; }	100% { left: -700px; } }
+@keyframes move-left { 0% { left: $screensize; }	100% { left: -700px; } }
 
 @-moz-keyframes sway { 0% { -webkit-transform: rotate(0deg); -ms-transform: rotate(0deg); transform: rotate(0deg); } 50% { -ms-transform: rotate(10deg); transform: rotate(10deg); -webkit-transform: rotate(10deg); } 100% { -ms-transform: rotate(0deg); transform: rotate(0deg); -webkit-transform: rotate(0deg); } }
 @-webkit-keyframes sway { 0% { -webkit-transform: rotate(0deg); -ms-transform: rotate(0deg); transform: rotate(0deg); } 50% { -ms-transform: rotate(10deg); transform: rotate(10deg); -webkit-transform: rotate(10deg); } 100% { -ms-transform: rotate(0deg); transform: rotate(0deg); -webkit-transform: rotate(0deg); } }
