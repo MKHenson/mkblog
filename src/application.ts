@@ -7,16 +7,15 @@ module mkblog
 {
     'use strict';
 
-
-
-    angular.module("mkblog", ["ui.router", 'ngSanitize', 'chieffancypants.loadingBar'])
-        .factory("signaller", function () 
+    angular.module("mkblog", ["ui.router", 'ngSanitize', 'chieffancypants.loadingBar', 'html-templates', "modepress-client"])
+        .value('apiUrl', './')
+        .factory("signaller", function ()
         {
             return function() {
-                    setTimeout( function () { (<any>window).prerenderReady = true; }, 500);
-                }
+                setTimeout( function () { (<any>window).prerenderReady = true; }, 500);
+            }
         })
-        .factory("meta", ["$rootScope", function (rootScope) 
+        .factory("meta", ["$rootScope", function (rootScope)
         {
             return rootScope.meta;
         }])
@@ -27,15 +26,13 @@ module mkblog
             $rootScope.meta = new Meta();
 
             // This tells Google analytics to count a new page view on each state change
-            $rootScope.$on('$stateChangeSuccess', function (event) 
+            $rootScope.$on('$stateChangeSuccess', function (event)
             {
                 if (!(<any>$window).ga)
                     return;
 
                 (<Meta>$rootScope.meta).url = $location.absUrl();
-
                 (<any>$window).ga('send', 'pageview', { page: $location.path() });
-
                 window.scroll(0, 0);
             });
         }])

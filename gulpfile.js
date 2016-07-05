@@ -44,6 +44,7 @@ var thirdPartyFiles = [
     './third-party/angular-ui-router/release/angular-ui-router.js',
     './third-party/angular-sanitize/angular-sanitize.js',
     './third-party/angular-animate/angular-animate.js',
+    './third-party/modepress-client/dist/plugin.js',
     './third-party/angular-loading-bar/build/loading-bar.js',
     './third-party/angular-loading-bar/build/loading-bar.css'
 ];
@@ -116,8 +117,9 @@ gulp.task('copy-index', function() {
 
     return gulp.src(["src/index.jade",
             "src/sitemap.xml",
-            "src/favicon.png",
-            "src/media/images/**/*.*"
+            "src/favicon.ico",
+            "src/media/images/**/*.*",
+            "src/media/fonts/**/*.*"
             ], { base: "src" })
         .pipe(gulp.dest(outDir));
 
@@ -136,8 +138,9 @@ gulp.task('copy-index-release', function() {
 
         gulp.src([
             "src/sitemap.xml",
-            "src/favicon.png",
-            "src/media/images/**/*.*"
+            "src/favicon.ico",
+            "src/media/images/**/*.*",
+            "src/media/fonts/**/*.*"
             ], { base: "src" })
         .pipe(gulp.dest(outDir))
     ]);
@@ -203,7 +206,8 @@ gulp.task('install-third-parties', function () {
         downloadTarball("https://github.com/angular/bower-angular-sanitize/tarball/v1.5.3-build.4691+sha.e34ef23", './third-party/angular-sanitize'),
         downloadTarball("https://github.com/angular-ui/ui-router/tarball/0.2.18", './third-party/angular-ui-router'),
         downloadTarball("https://github.com/jquery/jquery/tarball/2.2.2", './third-party/jquery'),
-        downloadTarball("https://github.com/chieffancypants/angular-loading-bar/tarball/0.9.0", './third-party/angular-loading-bar')
+        downloadTarball("https://github.com/chieffancypants/angular-loading-bar/tarball/0.9.0", './third-party/angular-loading-bar'),
+        downloadTarball("https://github.com/MKHenson/modepress-client-angular/tarball/master", './third-party/modepress-client'),
     ]);
 });
 
@@ -232,7 +236,8 @@ function getDefinition(url, dest, name) {
 gulp.task('install-definitions', function () {
      return Promise.all([
             getDefinition("https://raw.githubusercontent.com/MKHenson/users/dev/src/definitions/custom/definitions.d.ts", "src/definitions/required/", "users.d.ts"),
-            getDefinition("https://raw.githubusercontent.com/MKHenson/modepress/dev/server/src/definitions/custom/modepress-api.d.ts", "src/definitions/required/", "modepress-api.d.ts")
+            getDefinition("https://raw.githubusercontent.com/MKHenson/modepress/dev/server/src/definitions/custom/modepress-api.d.ts", "src/definitions/required/", "modepress-api.d.ts"),
+            getDefinition("https://raw.githubusercontent.com/MKHenson/modepress-client-angular/master/src/definitions/generated/plugin.d.ts", "src/definitions/required/", "modepress-client.d.ts")
          ]);
 });
 
@@ -275,7 +280,7 @@ gulp.task('html-to-ng', function() {
             quotes: true
         }))
         .pipe(ngHtml2Js({
-            moduleName: "admin-templates",
+            moduleName: "html-templates",
             prefix: ""
         }))
         .pipe(concat("partials.min.js"))

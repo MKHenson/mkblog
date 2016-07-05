@@ -19,21 +19,16 @@ html(lang="en", ng-app="mkblog")
 		meta(property="og:description", content="{{meta.description}}")
 		meta(property="og:site_name", content="{{meta.website}}")
 
-		link(rel="stylesheet",type="text/css",href=url + "/style.css")
-		link(rel="stylesheet",type="text/css",href=url + "/loading-bar.css")
-		link(rel="stylesheet",type="text/css",href=url + "/animate.css")
+		link(rel="stylesheet",type="text/css",href=url + "/css/style.css")
+		link(rel="stylesheet",type="text/css",href=url + "/third-party/angular-loading-bar/build/loading-bar.css")
 		link(href="https://fonts.googleapis.com/css?family=Lily+Script+One", rel="stylesheet", type="text/css")
 		link(href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,300", rel="stylesheet", type="text/css")
 		script(type="text/javascript").
 			var _users = "#{usersURL}"
 			var _url = "#{url}"
 			window.prerenderReady = false;
-		script(type="text/javascript", src=url + "/js-libs/jquery-2.1.3.min.js")
-		script(type="text/javascript", src=url + "/js-libs/angular.min.js")
-		script(type="text/javascript", src=url + "/js-libs/angular-ui-router.min.js")
-		script(type="text/javascript", src=url + "/js-libs/angular-animate.min.js")
-		script(type="text/javascript", src=url + "/js-libs/angular-sanitize.min.js")
-		script(type="text/javascript", src=url + "/js-libs/loading-bar.min.js")
+		script(type="text/javascript", src=url + "/third-party/third-party.min.js")
+		script(type="text/javascript", src=url + "/templates/partials.min.js")
 		script(type="text/javascript", src=url + "/main.js")
 
 		base(href="/")

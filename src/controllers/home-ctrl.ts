@@ -3,12 +3,12 @@
 	'use strict';
 
     /**
-    * Controller for managing the 
+    * Controller for managing the
     */
     export class HomeCtrl extends PagedContent
     {
         // An array of todo items
-        public posts: Array<modepress.IPost>;
+        public posts: Array<Modepress.IPost>;
         public apiURL: string;
         public sce: ng.ISCEService;
 
@@ -22,12 +22,14 @@
         public signaller: Function;
         public meta: Meta;
 
-        public static $inject = ["$http", "apiURL", "$sce", "signaller", "meta"];
+        private _posts: ModepressClientPlugin.PostService;
+
+        public static $inject = ["$http", "apiURL", "$sce", "signaller", "meta", "posts"];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(http: ng.IHttpService, apiURL: string, sce: ng.ISCEService, signaller: Function, meta: Meta)
+        constructor(http: ng.IHttpService, apiURL: string, sce: ng.ISCEService, signaller: Function, meta: Meta, posts: ModepressClientPlugin.PostService)
         {
             super(http)
             this.posts = [];
@@ -38,8 +40,9 @@
             this.last = 1;
             this.signaller = signaller;
             this.meta = meta;
+            this._posts = posts;
         }
-        
+
 
         /**
         * Fetches a list of posts with the given GET params
@@ -48,9 +51,18 @@
         {
             var that = this;
             that.posts = [];
-            this.http.get<modepress.IGetPosts>(`${this.apiURL}/posts/get-posts?visibility=all&tags=${that.tag}&rtags=mkhenson&index=${that.index}&limit=${that.limit}&author=${that.author}&categories=${that.category}`).then(function (posts)
+            this._posts.all({
+                visibility : ModepressClientPlugin.Visibility.public,
+                tags: [that.tag],
+                rtags: ["mkhenson"],
+                index: that.index,
+                limit: that.limit,
+                author: that.author,
+                categories: [that.category]
+
+            }).then(function (posts)
             {
-                that.posts = posts.data.data;
+                that.posts = posts.data;
                 var brokenArr;
 
                 for (var i = 0, l = that.posts.length; i < l; i++)
@@ -59,7 +71,7 @@
                     that.posts[i].content = that.sce.trustAsHtml(brokenArr[0]);
                 }
 
-                that.last = posts.data.count;
+                that.last = posts.count;
                 that.meta.defaults();
                 that.signaller();
             });

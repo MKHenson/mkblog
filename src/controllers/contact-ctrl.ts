@@ -9,7 +9,7 @@
 	{
 		// An array of todo items
 		private http: ng.IHttpService;
-        private mail: modepress.IMessage;
+        private mail: Modepress.IMessage;
 
 		// The dependency injector
         public static $inject = ["$http", "signaller", "meta"];
