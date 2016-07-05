@@ -68,7 +68,7 @@ Once this is complete, the built project will reside in the dist folder
 * Create a new server block in the servers property
 ```
 {
-    "host": "webinate.net",
+    "host": "blog.net",
     "portHTTP": 8001,
     "ssl": false,
     "staticFilesFolder": ["YOUR DIST FOLDER PATH (MUST BE ABSOLUTE VALUE)"],
