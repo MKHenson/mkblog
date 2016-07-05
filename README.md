@@ -2,13 +2,13 @@
 A small blog site using Modepress and Webinate Users as its backend
 
 ## Current stable version
-* v0.0.16
+* v0.0.15
 
 ## Requirements
 * MongoDB v3
 * Node 0.0.12
-* [Webinate-Users](https://github.com/MKHenson/webinate-users) 
-* [ModePress](https://github.com/MKHenson/modepress) 
+* [Webinate-Users](https://github.com/MKHenson/webinate-users)
+* [ModePress](https://github.com/MKHenson/modepress)
 * **Tested Ubuntu v14**
 
 ## Installation
@@ -48,7 +48,7 @@ curl -o- https://raw.githubusercontent.com/MKHenson/mkblog/dev/install-script-de
 E.g.
 "staticFilesFolder": ["/mkblog/resources"]
 ```
-* Also change the "templatePath" and “index”
+* Also change the "templatePath" and ï¿½indexï¿½
 ```
 "templatePath": "/mkblog/templates"
 "index": "index"
