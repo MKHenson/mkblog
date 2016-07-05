@@ -2,25 +2,35 @@
 {
     export class FooterCtrl
     {
-        public allPosts: Array<modepress.IPost>;
-        public posts: Array<modepress.IPost>;
+        public allPosts: Array<Modepress.IPost>;
+        public posts: Array<Modepress.IPost>;
 
         // The dependency injector
-        public static $inject = ["$scope", "$http", "apiURL"];
-        
-        constructor(scope: any, http: ng.IHttpService, apiURL: string )
+        public static $inject = ["$scope", "$http", "apiURL", "posts"];
+
+        constructor(scope: any, http: ng.IHttpService, apiURL: string, posts: ModepressClientPlugin.PostService )
         {
             scope.posts = [];
 
             var that = this;
-            http.get<modepress.IGetPosts>(`${apiURL}/posts/get-posts?rtags=mkhenson&limit=5&minimal=true&visibility=public`).then(function (posts)
+            posts.all({
+                visibility: ModepressClientPlugin.Visibility.public,
+                minimal: true,
+                limit: 5,
+                rtags: ["mkhenson"]
+            }).then(function (posts)
             {
-                scope.posts = posts.data.data;
+                scope.posts = posts.data;
             });
 
-            http.get<modepress.IGetPosts>(`${apiURL}/posts/get-posts?rtags=mkhenson&limit=5&minimal=true&visibility=all`).then(function (posts)
+            posts.all({
+                visibility: ModepressClientPlugin.Visibility.all,
+                minimal: true,
+                limit: 5,
+                rtags: ["mkhenson"]
+            }).then(function (posts)
             {
-                scope.allPosts = posts.data.data;
+                scope.allPosts = posts.data;
             });
         }
     }
