@@ -1,0 +1,27 @@
+<div class="contact-us">
+	<div class="contact-clouds">
+        <a href="https://twitter.com/MathewKHenson" target="_blank"><div class="sprite contact-twitter"></div></a>
+        <a href="https://www.youtube.com/channel/UCtcfpxQJOV-yHbJRuIlBgpA" target="_blank"><div class="sprite contact-youtube"></div></a>
+    </div>
+	<div class="header">
+		<h1>Drop Me a Message</h1>
+		<div class="what-we-do-cloud what-we-do-cloud-1 sprite"></div>
+		<div class="what-we-do-cloud what-we-do-cloud-2 sprite"></div>
+		<div class="what-we-do-cloud what-we-do-cloud-4 sprite"></div>
+	</div>
+	<div class="contact-form">
+		<form name="mailForm" novalidate id="contact-form">
+			<input class="small-input" name="iName" ng-class="{error: (mailForm.$submitted || mailForm.iName.$touched) && mailForm.iName.$error.required}" type="text" ng-model="controller.mail.name" required="" placeholder="Your Name" />
+			<input class="small-input" name="iEmail" ng-class="{error: (mailForm.$submitted || mailForm.iEmail.$touched) && mailForm.iEmail.$error.required}" type="email" ng-model="controller.mail.email" required="" placeholder="Your Email" />
+			<input class="small-input" name="iPhone" type="number" ng-model="controller.mail.phone" placeholder="Your Phone Number" />
+			<input class="small-input" name="iSite" type="text" ng-model="controller.mail.website" placeholder="Your Website" />
+			<textarea class="big-input" name="iMessage" ng-class="{error: (mailForm.$submitted || mailForm.iMessage.$touched) && (mailForm.iMessage.$error.required || mailForm.iMessage.$error.minlength)}" cols="50" ng-model="controller.mail.message" required="" rows="6" ng-minlength="5" placeholder="Enter Message"></textarea>
+			<input type="submit" class="button success blue" value="Send Message" ng-click="(mailForm.$valid && controller.sendMessage())" />
+			<div ng-show="mailForm.$submitted">
+				<div class="error" ng-show="mailForm.$invalid">Please check your details</div>
+			</div>
+			<div class="success" style="display:none;"></div>
+		</form>
+
+	</div>
+</div>

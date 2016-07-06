@@ -1,0 +1,39 @@
+<div class="home-info">
+	<h1>Mathew Henson</h1>
+	<h3>Developer - Entreupeneur - Consultant</h3>
+</div>
+<div class="what-we-do">
+	<div class="what-we-do-cloud sprite what-we-do-cloud-1"></div>
+	<div class="what-we-do-cloud sprite what-we-do-cloud-2"></div>
+	<div class="what-we-do-cloud sprite what-we-do-cloud-4"></div>
+</div>
+<div class="home-background" >
+	<div class="tree tree-a sprite"></div>
+    <div class="tree tree-b sprite"></div>
+    <div class="tree tree-b sprite" style="left:76%"></div>
+    <div class="rex-outer"><div class="rex sprite"></div></div>
+
+    <div class="home-img sprite mathew"></div>
+	<a class="home-img" href="https://twitter.com/MathewKHenson" title="Follow me on twitter" target="_blank"><div class="sprite twitter float-up-down"></div></a>
+</div>
+<div class="blog-container">
+    <div class="navigation">
+        <a class="earlier" ui-sref="home.posts({tag: controller.selectedTag, index:  controller.index > controller.limit ? controller.index - controller.limit : 0 })" ng-if="controller.index != 0">< Earlier Posts</a>
+		<a class="older"   ui-sref="home.posts({tag: controller.selectedTag, index: controller.index + controller.limit })" ng-if="( controller.index + controller.limit < controller.last )">Older Posts ></a>
+		<div class="categories">
+			<span><a ui-sref="home.posts({tag: '', index: '0'})">News</a></span>
+			<span><a ui-sref="home.posts({tag: 'mk-tutorials', index: '0'})">Tutorials</a></span>
+			<span><a ui-sref="home.posts({tag: 'mk-projects', index: '0'})">Projects</a></span>
+		</div>
+        <div class="fix"></div>
+    </div>
+
+    <div ui-view class="loading-white"></div>
+    <div class="fix"></div>
+
+    <div class="navigation">
+        <a class="earlier" ng-show="controller.index" ng-href=".?index={{controller.index > controller.limit ? controller.index - controller.limit : 0 }}">< Earlier Posts</a>
+        <a class="older" ng-show="controller.index + controller.limit < controller.last" ng-href=".?index={{controller.index + controller.limit}}">Older Posts ></a>
+        <div class="fix"></div>
+    </div>
+</div>

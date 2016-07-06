@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "module": "amd",
+    "removeComments": false,
+    "noEmitOnError": true,
+    "declaration": false,
+    "sourceMap": false,
+    "preserveConstEnums": true,
+    "target": "es5",
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "outFile": "./dist/main.js",
+    "noImplicitAny" : false
+  },
+  "files": [
+        "src/_references.d.ts",
+        "src/meta.ts",
+        "src/config.ts",
+        "src/controllers/paged-content.ts",
+        "src/controllers/simple-ctrl.ts",
+        "src/controllers/footer-ctrl.ts",
+        "src/controllers/projects-ctrl.ts",
+        "src/controllers/home-ctrl.ts",
+        "src/controllers/home-sub-ctrl.ts",
+        "src/controllers/post-ctrl.ts",
+        "src/controllers/contact-ctrl.ts",
+        "src/application.ts"
+  ]
+}
