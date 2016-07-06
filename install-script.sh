@@ -6,7 +6,7 @@ set -e
 
 # Functiom that prints the latest stable version
 version() {
-  echo "0.0.19"
+  echo "0.1.1"
 }
 
 echo "Downloading latest version from github $(version)"
@@ -27,6 +27,6 @@ fi
 rm "v$(version).zip"
 
 # All done
-echo "MKBlog successfully downloaded"
+echo "MKBlog v$(version) successfully downloaded"
 exit
 } # this ensures the entire script is downloaded #

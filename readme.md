@@ -2,7 +2,7 @@
 A small blog site using Modepress and Webinate Users as its backend
 
 ## Current stable version
-* v0.1.0
+* v0.1.1
 
 ## Requirements
 * MongoDB v3.*
