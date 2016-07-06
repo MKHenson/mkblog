@@ -8,7 +8,7 @@ module mkblog
     'use strict';
 
     angular.module("mkblog", ["ui.router", 'ngSanitize', 'chieffancypants.loadingBar', 'html-templates', "modepress-client"])
-        .value('apiUrl', './')
+        .value('apiUrl', '.')
         .factory("signaller", function ()
         {
             return function() {
