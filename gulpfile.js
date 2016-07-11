@@ -157,24 +157,6 @@ gulp.task('copy-index-release', function() {
 });
 
 /**
- * Deletes a folder and all its children recursively
- * @param {string} path The folder path to remove
- */
-function deleteFolderRecursive(path) {
-    if( fs.existsSync(path) ) {
-        fs.readdirSync(path).forEach(function(file,index){
-            var curPath = path + "/" + file;
-            if(fs.lstatSync(curPath).isDirectory()) { // recurse
-                deleteFolderRecursive(curPath);
-            }
-            else
-                fs.unlinkSync(curPath);
-        });
-        fs.rmdirSync(path);
-    }
-};
-
-/**
  * Downloads a tarbal from a given url and unzips it into a specified folder
  * @param {string} url The URL of the tarball to download
  * @param {string} folder The folder we are moving the contents to
@@ -195,7 +177,7 @@ function downloadTarball(url, folder){
             gulp.src( folder + '/' + folders[0] + "/**/*.*" )
                 .pipe(gulp.dest(folder))
                 .on('end', function() {
-                    deleteFolderRecursive(folder + '/' + folders[0]);
+                    rimraf.sync(folder + '/' + folders[0]);
                     gutil.log(gutil.colors.green('Finished download of "'+ url +'"'));
                     resolve(true);
                 });
@@ -208,7 +190,7 @@ function downloadTarball(url, folder){
  */
 gulp.task('install-third-parties', function () {
 
-    deleteFolderRecursive("./third-party");
+    rimraf.sync("./third-party");
 
     return Promise.all([
         downloadTarball("https://github.com/angular/bower-angular/tarball/v1.5.3-build.4695+sha.7489d56", './third-party/angular'),
