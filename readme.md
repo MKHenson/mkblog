@@ -7,8 +7,8 @@ A small blog site using Modepress and Webinate Users as its backend
 ## Requirements
 * MongoDB v3.*
 * Node ^6.2.0
-* [Webinate-Users](https://github.com/MKHenson/webinate-users)
-* [ModePress](https://github.com/MKHenson/modepress)
+* [Webinate Users](https://github.com/Webinate/users)
+* [ModePress](https://github.com/Webinate/modepress)
 * **Tested Ubuntu v14.04**
 * [Gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
 
