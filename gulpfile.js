@@ -37,7 +37,7 @@ var tsConfigGulp = {
     "noImplicitAny": tsConfig.compilerOptions.noImplicitAny,
     "allowUnreachableCode": tsConfig.compilerOptions.allowUnreachableCode,
     "allowUnusedLabels": tsConfig.compilerOptions.allowUnusedLabels,
-    "out":"main.js"
+    "out": "main.js"
 };
 var thirdPartyFiles = [
     './third-party/jquery/dist/jquery.js',
@@ -53,13 +53,12 @@ var thirdPartyFiles = [
 /**
  * Checks to see that all TS files listed exist
  */
-gulp.task('check-files', function(){
+gulp.task('check-files', function() {
 
     // Make sure the files exist
-    for (var i = 0, l = tsFiles.length; i < l; i++ )
-        if(!fs.existsSync(tsFiles[i]))
-        {
-            console.log("File does not exist:" + tsFiles[i] );
+    for (var i = 0, l = tsFiles.length; i < l; i++)
+        if (!fs.existsSync(tsFiles[i])) {
+            console.log("File does not exist:" + tsFiles[i]);
             process.exit();
         }
 });
@@ -84,19 +83,19 @@ gulp.task('sass-release', ['sprites'], function() {
 /**
  * Generate dist/media/sprites/sprite.png and /src/temp/sprite.scss
  */
-gulp.task('sprites', function () {
-  return sprity.src({
-    src: './src/media/sprites/**/*.{png,jpg}',
-    style: './sprites.scss',
-    cssPath: '/media/sprites',
-    name: 'sprites',
-    orientation : 'binary-tree',
-    prefix: 'sprite',
-    processor: 'sass',
-    'style-type': 'scss',
-    margin:0
-  })
-  .pipe(gulpif('*.png', gulp.dest( outDir + '/media/sprites'), gulp.dest(  "src/temp-css"  )))
+gulp.task('sprites', function() {
+    return sprity.src({
+        src: './src/media/sprites/**/*.{png,jpg}',
+        style: './sprites.scss',
+        cssPath: '/media/sprites',
+        name: 'sprites',
+        orientation: 'binary-tree',
+        prefix: 'sprite',
+        processor: 'sass',
+        'style-type': 'scss',
+        margin: 0
+    })
+        .pipe(gulpif('*.png', gulp.dest(outDir + '/media/sprites'), gulp.dest("src/temp-css")))
 });
 
 /**
@@ -105,7 +104,7 @@ gulp.task('sprites', function () {
 gulp.task('ts-code', ['check-files'], function() {
 
     return gulp.src(tsFiles, { base: "." })
-        .pipe(ts( tsConfigGulp ))
+        .pipe(ts(tsConfigGulp))
         .pipe(gulp.dest(outDir));
 });
 
@@ -115,7 +114,7 @@ gulp.task('ts-code', ['check-files'], function() {
 gulp.task('ts-code-release', ['check-files'], function() {
 
     return gulp.src(tsFiles, { base: "." })
-        .pipe(ts( tsConfigGulp ))
+        .pipe(ts(tsConfigGulp))
         .pipe(uglify())
         .pipe(gulp.dest(outDir));
 });
@@ -126,11 +125,11 @@ gulp.task('ts-code-release', ['check-files'], function() {
 gulp.task('copy-index', function() {
 
     return gulp.src(["src/index.jade",
-            "src/sitemap.xml",
-            "src/favicon.ico",
-            "src/media/images/**/*.*",
-            "src/media/fonts/**/*.*"
-            ], { base: "src" })
+        "src/sitemap.xml",
+        "src/favicon.ico",
+        "src/media/images/**/*.*",
+        "src/media/fonts/**/*.*"
+    ], { base: "src" })
         .pipe(gulp.dest(outDir));
 
 });
@@ -142,7 +141,7 @@ gulp.task('copy-index-release', function() {
 
     return Promise.all([
 
-        gulp.src( "src/index-prod.jade", { base: "src" })
+        gulp.src("src/index-prod.jade", { base: "src" })
             .pipe(rename("index.jade"))
             .pipe(gulp.dest(outDir)),
 
@@ -151,8 +150,8 @@ gulp.task('copy-index-release', function() {
             "src/favicon.ico",
             "src/media/images/**/*.*",
             "src/media/fonts/**/*.*"
-            ], { base: "src" })
-        .pipe(gulp.dest(outDir))
+        ], { base: "src" })
+            .pipe(gulp.dest(outDir))
     ]);
 });
 
@@ -161,34 +160,34 @@ gulp.task('copy-index-release', function() {
  * @param {string} url The URL of the tarball to download
  * @param {string} folder The folder we are moving the contents to
  */
-function downloadTarball(url, folder){
-    return new Promise(function(resolve, reject){
-        gutil.log('Downloading file "'+ url +'" into folder "' + folder + '"');
+function downloadTarball(url, folder) {
+    return new Promise(function(resolve, reject) {
+        gutil.log('Downloading file "' + url + '" into folder "' + folder + '"');
         return request(url)
-        .pipe(source('hello.tar.gz'))
-        .on('end', function(){
-            gutil.log('Unzipping... "'+ url +'"');
-        })
-        .pipe(gunzip())
-        .pipe(untar())
-        .pipe(gulp.dest(folder))
-        .on('end', function() {
-            var folders = fs.readdirSync(folder);
-            gulp.src( folder + '/' + folders[0] + "/**/*.*" )
-                .pipe(gulp.dest(folder))
-                .on('end', function() {
-                    rimraf.sync(folder + '/' + folders[0]);
-                    gutil.log(gutil.colors.green('Finished download of "'+ url +'"'));
-                    resolve(true);
-                });
-        })
+            .pipe(source('hello.tar.gz'))
+            .on('end', function() {
+                gutil.log('Unzipping... "' + url + '"');
+            })
+            .pipe(gunzip())
+            .pipe(untar())
+            .pipe(gulp.dest(folder))
+            .on('end', function() {
+                var folders = fs.readdirSync(folder);
+                gulp.src(folder + '/' + folders[0] + "/**/*.*")
+                    .pipe(gulp.dest(folder))
+                    .on('end', function() {
+                        rimraf.sync(folder + '/' + folders[0]);
+                        gutil.log(gutil.colors.green('Finished download of "' + url + '"'));
+                        resolve(true);
+                    });
+            })
     });
 }
 
 /**
  * Downloads each of the third party archives and unzips them into the third-party folder respectively
  */
-gulp.task('install-third-parties', function () {
+gulp.task('install-third-parties', function() {
 
     rimraf.sync("./third-party");
 
@@ -214,7 +213,7 @@ function getDefinition(url, dest, name) {
             .pipe(rename(name))
             .pipe(gulp.dest(dest))
             .on('error', function(err) {
-                throw(err)
+                throw (err)
             })
             .on('end', function() {
                 resolve(true);
@@ -225,12 +224,12 @@ function getDefinition(url, dest, name) {
 /**
  * Downloads the definition files used in the development of the application and moves them into the definitions folder
  */
-gulp.task('install-definitions', function () {
-     return Promise.all([
-            getDefinition("https://raw.githubusercontent.com/Webinate/users/dev/src/definitions/custom/definitions.d.ts", "src/definitions/required/", "users.d.ts"),
-            getDefinition("https://raw.githubusercontent.com/Webinate/modepress/dev/src/definitions/custom/modepress-api.d.ts", "src/definitions/required/", "modepress-api.d.ts"),
-            getDefinition("https://raw.githubusercontent.com/Webinate/modepress-client-angular/master/src/definitions/generated/plugin.d.ts", "src/definitions/required/", "modepress-client.d.ts")
-         ]);
+gulp.task('install-definitions', function() {
+    return Promise.all([
+        getDefinition("https://raw.githubusercontent.com/Webinate/users/dev/src/definitions/generated/users.d.ts", "src/definitions/required/", "users.d.ts"),
+        getDefinition("https://raw.githubusercontent.com/Webinate/modepress/dev/src/definitions/generated/modepress.d.ts", "src/definitions/required/", "modepress-api.d.ts"),
+        getDefinition("https://raw.githubusercontent.com/Webinate/modepress-client-angular/master/src/definitions/generated/plugin.d.ts", "src/definitions/required/", "modepress-client.d.ts")
+    ]);
 });
 
 /**
@@ -238,7 +237,7 @@ gulp.task('install-definitions', function () {
  */
 gulp.task('deploy-third-party', function() {
 
-    return gulp.src( thirdPartyFiles, { base: "third-party" } )
+    return gulp.src(thirdPartyFiles, { base: "third-party" })
         .pipe(gulp.dest(outDir + "/third-party"));
 });
 
@@ -247,10 +246,10 @@ gulp.task('deploy-third-party', function() {
  */
 gulp.task('deploy-third-party-release', function() {
 
-    const jsFilter = filter('**/*.js', {restore: true});
-    const cssFilter = filter('**/*.css', {restore: true});
+    const jsFilter = filter('**/*.js', { restore: true });
+    const cssFilter = filter('**/*.css', { restore: true });
 
-    return gulp.src( thirdPartyFiles, { base: "third-party" } )
+    return gulp.src(thirdPartyFiles, { base: "third-party" })
         .pipe(jsFilter)
         .pipe(concat("third-party.min.js"))
         .pipe(uglify())
@@ -281,6 +280,6 @@ gulp.task('html-to-ng', function() {
         .pipe(gulp.dest(outDir + "/templates"));
 });
 
-gulp.task('install', [ 'install-definitions', 'install-third-parties']);
-gulp.task('build-all', [ 'deploy-third-party', 'html-to-ng', 'copy-index', 'sass', 'ts-code']);
-gulp.task('build-all-release', [ 'deploy-third-party-release', 'html-to-ng', 'copy-index-release', 'sass-release', 'ts-code-release']);
+gulp.task('install', ['install-definitions', 'install-third-parties']);
+gulp.task('build', ['deploy-third-party', 'html-to-ng', 'copy-index', 'sass', 'ts-code']);
+gulp.task('build-release', ['deploy-third-party-release', 'html-to-ng', 'copy-index-release', 'sass-release', 'ts-code-release']);
